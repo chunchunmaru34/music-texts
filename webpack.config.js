@@ -7,9 +7,8 @@ module.exports = {
   entry: "./src/index.tsx",
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({ title: 'Test', template: 'public/index.html' })
+    new HtmlWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ],
 
   output: {
@@ -33,8 +32,9 @@ module.exports = {
     ]
   },
 
-  externals: {
-    "react": "React",
-    "react-dom": "ReactDOM"
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   }
 }
