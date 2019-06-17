@@ -11,6 +11,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
 
+  devtool: 'source-map',
+
   output: {
     filename: '[name].[hash].js'
   },
@@ -18,7 +20,8 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     hot: true,
-    compress: true
+    compress: true,
+    // host: '192.168.14.229'
   },
 
   resolve: {
@@ -33,8 +36,8 @@ module.exports = {
   },
 
   optimization: {
-    splitChunks: {
-      chunks: 'all'
-    }
+    // splitChunks: {
+    //   chunks: 'all'
+    // }
   }
 }

@@ -3,4 +3,8 @@ import * as ReactDOM from 'react-dom';
 
 import { App } from './components/app';
 
+(window as any).parseApiResponse = function(response: any) {
+  return response;
+}
+
 ReactDOM.render(<App/>, document.body);
