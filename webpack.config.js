@@ -25,13 +25,37 @@ module.exports = {
   },
 
   resolve: {
+    alias: {
+      "@app": path.resolve(__dirname, "src/app"),
+      "@services": path.resolve(__dirname, "src/app/services"),
+      "@components": path.resolve(__dirname, "src/app/components"),
+      "@interfaces": path.resolve(__dirname, "src/app/interfaces"),
+      "@constants": path.resolve(__dirname, "src/app/constants"),
+      "@utils": path.resolve(__dirname, "src/app/utils"),
+    },
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
 
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+      { test: /\.tsx?$/, loader: "ts-loader" },
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+      {
+        test: /\.scss$/i,
+        loader: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: 'local',
+                localIdentName: '[name]__[local]__[hash:base64:5]'
+              },
+            }
+          },
+          'sass-loader'
+        ]
+      }
     ]
   },
 
