@@ -9,6 +9,7 @@
       "@interfaces/*": ["app/interfaces/*"],
       "@constants/*": ["app/constants/*"],
       "@utils/*": ["app/utils/*"],
+      "@assets/*": ["app/assets/*"]
     },
     "sourceMap": true,
     "module": "commonjs",

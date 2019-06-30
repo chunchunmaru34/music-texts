@@ -32,6 +32,7 @@ module.exports = {
       "@interfaces": path.resolve(__dirname, "src/app/interfaces"),
       "@constants": path.resolve(__dirname, "src/app/constants"),
       "@utils": path.resolve(__dirname, "src/app/utils"),
+      "@assets": path.resolve(__dirname, "src/app/assests")
     },
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
@@ -55,6 +56,14 @@ module.exports = {
           },
           'sass-loader'
         ]
+      },
+      {
+        test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
+        loader: 'file-loader',
+        // include: path.join(__dirname, 'assets'),
+        options: {
+          name: '[path][name].[ext]'
+        }
       }
     ]
   },
