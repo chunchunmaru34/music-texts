@@ -9,7 +9,7 @@ const initialState = {
   tracks: []
 }
 
-export const topTracksReducer = (state, action) => {
+export const topTracksReducer = (state = initialState, action) => {
   switch (action.type) {
     case TOP_TRACKS_RECEIVED:
       const receivedTracks = action.payload;
@@ -24,6 +24,6 @@ export const topTracksReducer = (state, action) => {
         tracks: resultedTracks
       }
     default:
-      return initialState;
+      return state;
   }
 }

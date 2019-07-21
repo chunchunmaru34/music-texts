@@ -1,7 +1,7 @@
 import { MusicGenre } from './music-genre.interface';
 
 export interface Album {
-  id: number;
+  albumId: number;
   mbid: string;
   name: string;
   rating: number;
