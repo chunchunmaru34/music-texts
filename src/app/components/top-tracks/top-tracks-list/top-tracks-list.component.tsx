@@ -1,18 +1,20 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 
 import { Track } from '@interfaces/track.interface';
 import { TopTrack } from '../top-track/top-track.component';
-import { getTopSongs } from '@services/chart/chart-track.service';
+import { fetchTopTracks } from '@actions/top-tracks.actions';
 
 import * as styles from './top-tracks-list.styles.scss';
 
-export class TopTracksList extends React.Component {
-  state: any = { tracks: [] };
+interface TopTracksProps {
+  dispatch: Function,
+  topTracks: Array<Track>
+};
 
+class TopTracksListComponent extends React.Component<TopTracksProps> {
   async componentDidMount() {
-    const tracks: any = await getTopSongs();
-
-    this.setState({ tracks: tracks || []})
+    this.props.dispatch(fetchTopTracks(15));
   }
 
   render() {
@@ -20,9 +22,15 @@ export class TopTracksList extends React.Component {
       <div className={styles['top-tracks-list']}>
         <div className={styles.title}><h2>Top Songs</h2></div>
         <div className={styles['top-track-cards']}>
-          { this.state.tracks.map((track: Track) => <TopTrack key={track.trackId} track={track}/>) }
+          { this.props.topTracks.map((track: Track) => <TopTrack key={track.trackId} track={track}/>) }
         </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  topTracks: state.topTracks.tracks
+})
+
+export const TopTracksList = connect(mapStateToProps, null)(TopTracksListComponent);

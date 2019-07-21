@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
 import { App } from './app/components/app';
 import { mainReducer } from './app/reducers/index';
@@ -12,7 +13,7 @@ import { mainReducer } from './app/reducers/index';
 }
 
 const store = createStore(mainReducer, {}, composeWithDevTools(
-  applyMiddleware()
+  applyMiddleware(thunk)
 ));
 
 ReactDOM.render((

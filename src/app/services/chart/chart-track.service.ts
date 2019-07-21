@@ -7,12 +7,14 @@ import { Track } from '@interfaces/track.interface';
 
 const http = axios.create({ adapter: jsonpAdapter });
 
-export async function getTopSongs(): Promise<Array<Track>> {
+export async function getTopSongs(count = 10): Promise<Array<Track>> {
   return http.get(API_URL + 'chart.tracks.get', { params: {
     format: 'jsonp',
     country: 'us',
     'chart_name': 'top',
     apikey: API_KEY,
+    page: 1,
+    'page_size': count,
     callback: 'parseApiResponse'
   }}).then(response => {
     const data = eval(response.data);

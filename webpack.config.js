@@ -32,7 +32,8 @@ module.exports = {
       "@interfaces": path.resolve(__dirname, "src/app/interfaces"),
       "@constants": path.resolve(__dirname, "src/app/constants"),
       "@utils": path.resolve(__dirname, "src/app/utils"),
-      "@assets": path.resolve(__dirname, "src/app/assests")
+      "@assets": path.resolve(__dirname, "src/app/assests"),
+      "@actions": path.resolve(__dirname, "src/app/actions")
     },
     extensions: [".ts", ".tsx", ".js", ".json"]
   },
