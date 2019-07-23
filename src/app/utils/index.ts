@@ -30,3 +30,17 @@ export function stringToCamelCase(value: string): string  {
 
   return result;
 }
+
+export function debounce(func, time) {
+  let timeout;
+
+  return (...args) => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+
+    timeout = setTimeout(() => {
+      func(...args);
+    }, time);
+  }
+}
