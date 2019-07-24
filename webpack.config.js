@@ -8,7 +8,8 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.EnvironmentPlugin(['SPOTIFY_API_KEY', 'MUSIXMATCH_API_KEY'])
   ],
 
   devtool: 'source-map',
