@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { TopTrack } from '../top-track/top-track.component';
+import { TrackCard } from '@components/track-card/track-card.component';
 import { fetchTopTracks } from '@actions/top-tracks.actions';
-import { fetchAlbum } from '@actions/album.actions';
 
 import * as styles from './top-tracks-list.styles.scss';
 import { Track } from '@app/models/track.model';
@@ -27,7 +26,7 @@ class TopTracksListComponent extends React.Component<TopTracksProps> {
       <div className={styles['top-tracks-list']}>
         <div className={styles.title}><h2>Top Songs</h2></div>
         <div className={styles['top-track-cards']}>
-          { topTracks.map((track: Track) => <TopTrack key={track.id} track={track}/>) }
+          { topTracks.map((track: Track) => <TrackCard key={track.id} track={track}/>) }
         </div>
       </div>
     )

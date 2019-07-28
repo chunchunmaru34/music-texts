@@ -1,23 +1,30 @@
 import * as React from 'react'
+import { connect } from 'react-redux';
 
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchResult } from './search-results/search-results.component';
 import { debounce } from '@app/utils';
-import { searchTracks } from '@app/services/track/track.service';
+import { Track } from '@app/models/track.model';
+import { clearSearchResults, searchTracks } from '@actions/search.actions';
 
 import * as styles from './track-search.styles.scss';
-import { SearchResult } from './search-results/search-results.component';
 
-export class TrackSearchComponent extends React.Component {
-  state = { tracks: [] };
+interface TrackSearchProps {
+  tracks: Track[],
+  cleanResults: Function,
+  searchTracks: Function,
+  dispatch: Function,
+}
 
-  search = debounce(async (value: string) => {
+class TrackSearch extends React.Component<TrackSearchProps> {
+  search = debounce((value: string) => {
+    const { searchTracks, cleanResults } = this.props;
     if (!value) {
-      this.setState({ tracks: []});
+      cleanResults();
       return;
     }
 
-    const tracks = await searchTracks(value);
-    this.setState({ tracks });
+    searchTracks(value, { limit: 10 });
   }, 300)
 
   render() {
@@ -25,8 +32,21 @@ export class TrackSearchComponent extends React.Component {
       <div className={styles['track-search']}>
         <div className={styles.title}><h2>Search Tracks</h2></div>
         <SearchBarComponent onSearchInputChange={this.search}></SearchBarComponent>
-        <SearchResult tracks={this.state.tracks}></SearchResult>
+        <div className={styles['search-result-container']}>
+          <SearchResult tracks={this.props.tracks}></SearchResult>
+        </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  tracks: state.searchTracks.tracks
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  cleanResults: () => dispatch(clearSearchResults()),
+  searchTracks: (query, options?) => dispatch(searchTracks(query, options))
+})
+
+export const TrackSearchComponent = connect(mapStateToProps, mapDispatchToProps)(TrackSearch);

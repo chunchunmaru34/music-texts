@@ -9,18 +9,18 @@ const http = axios.create({ baseURL: SPOTIFY_API_URL, headers: { Authorization: 
 
 export async function searchTracks(
   query: string,
-  includeTypes: Set<TrackSearchTypesEnum> = new Set([TrackSearchTypesEnum.TRACK]),
-  limit?: number
+  options: {
+    includeTypes?: Set<TrackSearchTypesEnum>,
+    limit?: number
+  } = {}
 ): Promise<Track[]> {
-  let result = [];
-  let params = { q: query, type: [...includeTypes].join(','), limit };
+  const { limit, includeTypes = new Set([TrackSearchTypesEnum.TRACK]) } = options;
+  const params = { q: query, type: [...includeTypes].join(','), limit };
 
-  try {
-    result = await http.get('search', { params });
-    result = (result as any).data.tracks.items.map(item => new Track(item));
-  } catch (error) {
-    console.log(error);
-  }
+  let result = [];
+
+  result = await http.get('search', { params });
+  result = (result as any).data.tracks.items.map(item => new Track(item));
 
   return result;
 }

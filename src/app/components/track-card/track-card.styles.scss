@@ -6,8 +6,11 @@
   border: 1px solid black;
 }
 
+.album-cover {
+  width: 100%;
+}
+
 .track-name {
-  color: white;
   position: absolute;
   bottom: 0px;
   width: 100%;
@@ -15,5 +18,8 @@
   padding: 0 0 5px 5px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
   box-sizing: border-box;
+  color: white;
+  background: rgba(0, 0, 0, 0.3);
 }

@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { TopTrack } from '@app/components/top-tracks/top-track/top-track.component';
+import { TrackCard } from '@app/components/track-card/track-card.component';
 
 import * as styles from './search-results.styles.scss';
 
 
 export const SearchResult = ({ tracks }) => {
-  const trackCards = tracks.map(track => <TopTrack track={track}></TopTrack>)
+  const trackCards = tracks.map(track => <TrackCard track={track}></TrackCard>)
   return (
     <div className={styles['search-results']}>
       {trackCards}

@@ -2,8 +2,10 @@ import { combineReducers } from 'redux';
 
 import { albumsReducer } from './allbums.reducer';
 import { topTracksReducer } from './top-tracks.reducer';
+import { searchTracksReducer } from './search-tracks.reducer';
 
 export const mainReducer = combineReducers({
   albums: albumsReducer,
-  topTracks: topTracksReducer
+  topTracks: topTracksReducer,
+  searchTracks: searchTracksReducer
 });
