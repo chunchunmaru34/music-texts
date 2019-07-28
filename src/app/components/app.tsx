@@ -6,17 +6,18 @@ import '../../assets/styles/global.scss';
 import { Header } from './header/header.component';
 import { TopTracksList } from '@app/components/top-tracks/top-tracks-list/top-tracks-list.component';
 import { TrackSearchComponent } from "./track-search/track-search.component";
-import { authorize, redirectiToAuthPage } from '@app/services/authentication/authentication.service';
+import { redirectiToAuthPage } from '@app/services/authentication/authentication.service';
 
 function getQueryStringValue (key) {
-  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+  const toUri = '?' + window.location.hash.slice(1);
+  return decodeURIComponent(toUri.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
 
 export const App = () => {
   React.useEffect(() => {
-    const code = getQueryStringValue('code');
-    if (code) {
-      authorize(code);
+    const token = localStorage.getItem('access_token') || getQueryStringValue('access_token');
+    if (token) {
+      localStorage.setItem('access_token', token);
     } else {
       redirectiToAuthPage();
     }

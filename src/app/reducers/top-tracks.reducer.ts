@@ -3,7 +3,7 @@ import {
   TOP_TRACKS_REQUESTED,
   TOP_TRACKS_REQUEST_FAILED
 } from "@actions/top-tracks.actions";
-import { Track } from "@app/interfaces/track.interface";
+import { Track } from "@app/models/track.model";
 
 const initialState = {
   tracks: []
@@ -15,7 +15,7 @@ export const topTracksReducer = (state = initialState, action) => {
       const receivedTracks = action.payload;
       const resultedTracks = [...state.tracks];
       receivedTracks.forEach((track: Track) => {
-        if (!resultedTracks.find(item => item.trackId === track.trackId)) {
+        if (!resultedTracks.find(item => item.id === track.id)) {
           resultedTracks.push(track);
         }
       });

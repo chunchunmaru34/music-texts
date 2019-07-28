@@ -2,8 +2,7 @@ import * as React from 'react'
 
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { debounce } from '@app/utils';
-import { searchTrack as searchTracks } from '@app/services/track/track.service';
-import { Track } from '@app/interfaces/track.interface';
+import { searchTracks } from '@app/services/track/track.service';
 
 import * as styles from './track-search.styles.scss';
 import { SearchResult } from './search-results/search-results.component';

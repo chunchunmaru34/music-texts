@@ -1,5 +1,5 @@
-import { Track } from './../interfaces/track.interface';
-import { getTopSongs } from '@services/chart/chart-track.service';
+import { getTopTracks } from '@services/chart/chart-track.service';
+import { Track } from '@app/models/track.model';
 
 export const TOP_TRACKS_REQUESTED = 'TOP_TRACKS_REQUESTED';
 export const TOP_TRACKS_RECEIVED = 'TOP_TRACKS_RECEIVED';
@@ -29,7 +29,7 @@ export function fetchTopTracks(amount: number) {
   return async (dispatch) => {
     dispatch(requestTopTracks());
     try {
-      const tracks = await getTopSongs(amount);
+      const tracks = await getTopTracks(amount);
       dispatch(receiveTopTracks(tracks));
     } catch (error) {
       dispatch(failTopTracksRequest(error));

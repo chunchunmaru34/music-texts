@@ -10,7 +10,9 @@
       "@constants/*": ["app/constants/*"],
       "@utils/*": ["app/utils/*"],
       "@assets/*": ["app/assets/*"],
-      "@actions/*": ["app/actions/*"]
+      "@actions/*": ["app/actions/*"],
+      "@models/*": ["app/models/*"],
+      "@enums/*": ["app/enums/*"]
     },
     "sourceMap": true,
     "module": "commonjs",

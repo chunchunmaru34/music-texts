@@ -1,25 +1,22 @@
 import axios from 'axios';
-import jsonpAdapter from 'axios-jsonp';
 
-import { API_URL, API_KEY } from '@constants/api';
-import { toCamelCase } from '@utils/index';
-import { Track } from '@interfaces/track.interface';
+import { SPOTIFY_API_URL } from '@app/constants/api';
+import { Track } from '@models/track.model';
 
-const http = axios.create({ adapter: jsonpAdapter });
+const http = axios.create({ baseURL: SPOTIFY_API_URL, headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}`} });
 
-export async function getTopSongs(count = 10): Promise<Array<Track>> {
-  return http.get(API_URL + 'chart.tracks.get', { params: {
-    format: 'jsonp',
-    country: 'us',
-    'chart_name': 'top',
-    apikey: API_KEY,
-    page: 1,
-    'page_size': count,
-    callback: 'parseApiResponse'
-  }}).then(response => {
-    const data = eval(response.data);
-    const { trackList } = toCamelCase(data.message.body);
 
-    return trackList.map((track: any) => track.track);
-  });
+export async function getTopTracks(limit?: number): Promise<Track[]> {
+  let tracks = [];
+  try {
+    let params = {};
+    Object.assign(params, { limit });
+
+    tracks = await http.get('playlists/37i9dQZEVXbMDoHDwVN2tF/tracks', { params });
+    tracks = (tracks as any).data.items.map(dto => new Track(dto.track));
+  } catch (error) {
+    console.log(error);
+  }
+
+  return tracks;
 }

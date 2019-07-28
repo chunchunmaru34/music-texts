@@ -6,7 +6,7 @@ import * as styles from './search-results.styles.scss';
 
 
 export const SearchResult = ({ tracks }) => {
-  const trackCards = tracks.map(track => <TopTrack track={track} album={null}></TopTrack>)
+  const trackCards = tracks.map(track => <TopTrack track={track}></TopTrack>)
   return (
     <div className={styles['search-results']}>
       {trackCards}

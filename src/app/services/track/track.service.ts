@@ -1,22 +1,26 @@
-import { Track } from './../../interfaces/track.interface';
 import axios from 'axios';
-import jsonpAdapter from 'axios-jsonp';
 
-import { API_URL, API_KEY } from '@constants/api';
-import { toCamelCase } from '@utils/index';
+import { SPOTIFY_API_URL } from '@constants/api';
+import { TrackSearchTypesEnum } from '@enums/track-search-types.enum';
+import { Track } from '@app/models/track.model';
 
-const http = axios.create({ adapter: jsonpAdapter });
+const http = axios.create({ baseURL: SPOTIFY_API_URL, headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}`} });
 
-export async function searchTrack(query: string): Promise<Track> {
-  return http.get(API_URL + 'track.search', { params: {
-    format: 'jsonp',
-    q_track_artist: query,
-    apikey: API_KEY,
-    callback: 'parseApiResponse'
-  }}).then(response => {
-    const data = eval(response.data);
-    const { trackList } = toCamelCase(data.message.body);
 
-    return trackList.map((track: any) => track.track);
-  });
+export async function searchTracks(
+  query: string,
+  includeTypes: Set<TrackSearchTypesEnum> = new Set([TrackSearchTypesEnum.TRACK]),
+  limit?: number
+): Promise<Track[]> {
+  let result = [];
+  let params = { q: query, type: [...includeTypes].join(','), limit };
+
+  try {
+    result = await http.get('search', { params });
+    result = (result as any).data.tracks.items.map(item => new Track(item));
+  } catch (error) {
+    console.log(error);
+  }
+
+  return result;
 }

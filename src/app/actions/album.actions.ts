@@ -1,5 +1,5 @@
-import { Album } from './../interfaces/album.interface';
 import { getAlbum } from '@services/album/album.service';
+import { Album } from '@app/models/album.model';
 
 export const ALBUM_REQUESTED = 'ALBUM_REQUESTED';
 export const ALBUM_RECEIVED = 'ALBUM_RECEIVED';

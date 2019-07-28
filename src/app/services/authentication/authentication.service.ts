@@ -10,7 +10,7 @@ const http = axios.create({
 });
 
 export function redirectiToAuthPage() {
-  window.open(`https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=http://localhost:8080&scope=user-read-email`, 'no-open');
+  window.open(`https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=http://localhost:8081&scope=user-read-email`, 'no-open');
 }
 
 export async function authorize(code) {
@@ -18,7 +18,7 @@ export async function authorize(code) {
     const response = await http.post('/token', {
       code,
       'grant_type': 'authorization_code',
-      'redirect_uri': 'http://localhost:8080'
+      'redirect_uri': 'http://localhost:8081'
     });
     console.log(response);
   } catch (error) {
