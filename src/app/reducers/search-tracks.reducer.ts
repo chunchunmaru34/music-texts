@@ -6,7 +6,7 @@ import {
 } from "@app/actions/search.actions";
 
 const initialState = {
-  tracks: []
+  tracks: undefined
 }
 
 export const searchTracksReducer = (state = initialState, action) => {
@@ -20,7 +20,7 @@ export const searchTracksReducer = (state = initialState, action) => {
     case CLEAN_SEARCH_RESULTS:
       return {
         ...state,
-        tracks: []
+        tracks: undefined
       }
 
     default:

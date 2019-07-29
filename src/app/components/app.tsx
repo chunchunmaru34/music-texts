@@ -1,12 +1,13 @@
 import * as React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import * as styles from './app.scss';
 import '../../assets/styles/global.scss';
 
 import { Header } from './header/header.component';
-import { TopTracksList } from '@app/components/top-tracks/top-tracks-list/top-tracks-list.component';
-import { TrackSearchComponent } from "./track-search/track-search.component";
 import { redirectiToAuthPage } from '@app/services/authentication/authentication.service';
+import { HomePageComponent } from './home-page/home-page.component';
+import { TrackDetailsComponent } from './track-details/track-details.component';
 
 function getQueryStringValue (key) {
   const toUri = '?' + window.location.hash.slice(1);
@@ -24,14 +25,11 @@ export const App = () => {
   }, []);
 
   return (
-
-  <div className={styles.app}>
-    <Header></Header>
-    <div className={styles['track-search-container']}>
-      <TrackSearchComponent></TrackSearchComponent>
+    <div className={styles.app}>
+      <Header></Header>
+      <Switch>
+        <Route path="/tracks/:id" component={TrackDetailsComponent}/>
+        <Route exact path="/" component={HomePageComponent}/>
+      </Switch>
     </div>
-    <div className={styles['top-track-list-container']}>
-      <TopTracksList></TopTracksList>
-    </div>
-  </div>
 )}

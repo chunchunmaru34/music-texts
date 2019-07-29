@@ -6,10 +6,11 @@ import * as styles from './track-card.styles.scss';
 
 type PropTypes = {
   track: Track,
+  onClick?: Function,
 }
 
-export const TrackCard = ({ track }: PropTypes) => (
-  <div className={styles['track-card']}>
+export const TrackCard = ({ track, onClick }: PropTypes) => (
+  <div className={styles['track-card']} onClick={() => onClick()}>
     <img className={styles['album-cover']} src={track.album.images[1].url}></img>
     <div className={styles['track-name']}>{ track.name }</div>
   </div>

@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './app/components/app';
 import { mainReducer } from './app/reducers/index';
@@ -18,8 +19,10 @@ const store = createStore(mainReducer, {}, composeWithDevTools(
 
 ReactDOM.render((
     <Provider store={store}>
-      <App/>
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
     </Provider>
   ),
- document.body
+ document.getElementById('app')
 );

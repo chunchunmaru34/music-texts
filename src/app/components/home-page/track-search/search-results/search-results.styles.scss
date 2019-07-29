@@ -1,0 +1,13 @@
+.search-results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.no-results-message {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 26px;
+  padding: 10px 15px;
+  border-radius: 20px;
+}

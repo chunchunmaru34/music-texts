@@ -1,0 +1,50 @@
+.track-details-container {
+  width: 85%;
+  min-height: 500px;
+  margin: 0 auto;
+  margin-top: -250px;
+  background-color: white;
+  padding: 15px;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+.track-details {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px auto;
+
+  .album-cover {
+    img {
+      max-width: 300px;
+    }
+  }
+
+  .info-block {
+    min-width: 300px;
+    text-align: center;
+
+    .track-name {
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .artist-name, .album-name {
+      font-size: 18px;
+    }
+  }
+}
+
+.lyrics {
+  p {
+    font-size: 18px;
+    white-space: pre-wrap;
+  }
+
+  text-align: center
+}

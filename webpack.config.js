@@ -7,7 +7,7 @@ module.exports = {
   entry: "./src/index.tsx",
 
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public/index.html' ) }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.EnvironmentPlugin(['SPOTIFY_API_KEY', 'MUSIXMATCH_API_KEY'])
   ],
@@ -15,13 +15,16 @@ module.exports = {
   devtool: 'source-map',
 
   output: {
-    filename: '[name].[hash].js'
+    filename: '[name].[hash].js',
+    publicPath: '/'
   },
 
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     hot: true,
     compress: true,
+    historyApiFallback: true,
+    publicPath: '/'
     // host: '192.168.14.229'
   },
 

@@ -1,4 +1,4 @@
-import { getTopTracks } from '@services/chart/chart-track.service';
+import { getTopTracks } from '@services/track/track.service';
 import { Track } from '@app/models/track.model';
 
 export const TOP_TRACKS_REQUESTED = 'TOP_TRACKS_REQUESTED';

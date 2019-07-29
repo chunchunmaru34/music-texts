@@ -5,7 +5,7 @@ import { toCamelCase } from '@app/utils';
 
 export class Track extends SpotifyDto {
   album: Album;
-  artist: Artist;
+  artists: Artist[];
   availableMarkets: string[];
   discNumber: number;
   durationMs: number;
