@@ -3,7 +3,7 @@ import { SpotifyDto } from './spotify-dto.model';
 import { Album } from '@app/models/album.model';
 import { toCamelCase } from '@app/utils';
 
-export class Track extends SpotifyDto {
+export class TrackSimple extends SpotifyDto {
   album: Album;
   artists: ArtistSimple[];
   availableMarkets: string[];

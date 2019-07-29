@@ -8,6 +8,7 @@ import { Header } from './header/header.component';
 import { redirectiToAuthPage } from '@app/services/authentication/authentication.service';
 import { HomePageComponent } from './home-page/home-page.component';
 import { TrackDetailsComponent } from './track-details/track-details.component';
+import { ArtistPage } from './artist-page/artist-page.component';
 
 function getQueryStringValue (key) {
   const toUri = '?' + window.location.hash.slice(1);
@@ -29,6 +30,7 @@ export const App = () => {
       <Header></Header>
       <Switch>
         <Route path="/tracks/:id" component={TrackDetailsComponent}/>
+        <Route path="/artists/:id" component={ArtistPage}/>
         <Route exact path="/" component={HomePageComponent}/>
       </Switch>
     </div>

@@ -6,6 +6,7 @@ import { searchLyrics } from '@app/services/track/track.service';
 import { Lyrics } from '@app/models/lyrics.model';
 
 import * as styles from './track-details.styles.scss';
+import { Link } from 'react-router-dom';
 
 
 export const TrackDetailsComponent = ({ history, location }: RouteComponentProps) => {
@@ -33,7 +34,7 @@ export const TrackDetailsComponent = ({ history, location }: RouteComponentProps
           <div className={styles['album-cover']}><img src={track.album.images[0].url}></img></div>
           <div className={styles['info-block']}>
             <div className={styles['track-name']}>{track.name}</div>
-            <div className={styles['artist-name']}>{track.artists.map(artist => <div>{artist.name}</div>)}</div>
+            <div className={styles['artist-name']}>{track.artists.map(artist => <Link to={`/artists/${artist.id}`}>{artist.name}</Link>)}</div>
           </div>
         </div>
 

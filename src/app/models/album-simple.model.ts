@@ -2,22 +2,15 @@ import { ArtistSimple } from './artiist-simple.model';
 import { AlbumCover } from '@app/interfaces/album-cover.interface';
 import { toCamelCase } from '@app/utils';
 import { SpotifyDto } from './spotify-dto.model';
-import { TrackSimple } from './track-simple.model';
 
-export class Album extends SpotifyDto {
+export class AlbumSimple extends SpotifyDto {
   albumType: string;
   artists: ArtistSimple[];
   availableMarkets: string[];
-  copyrights: any[];
-  genres: string[];
-  label: string;
-  popularity: number;
-  tracks: TrackSimple[];
   id: string;
   images: AlbumCover[];
   name: string;
   releaseDate: string;
-  totalTracks: number;
 
   constructor(dto?: any) {
     super();
