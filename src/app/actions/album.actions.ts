@@ -1,4 +1,4 @@
-import { getAlbum } from '@services/album/album.service';
+// import { getAlbum } from '@services/album/album.service';
 import { Album } from '@app/models/album.model';
 
 export const ALBUM_REQUESTED = 'ALBUM_REQUESTED';
@@ -29,8 +29,8 @@ export function fetchAlbum(albumId: number) {
   return async (dispatch) => {
     dispatch(requestAlbum());
     try {
-      const tracks = await getAlbum(albumId);
-      dispatch(receiveAlbum(tracks));
+      // const tracks = await getAlbum(albumId);
+      // dispatch(receiveAlbum(tracks));
     } catch (error) {
       dispatch(failAlbumRequest(error));
     }

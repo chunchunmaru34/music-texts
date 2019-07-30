@@ -9,13 +9,15 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public/index.html' ) }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.EnvironmentPlugin(['SPOTIFY_API_KEY', 'MUSIXMATCH_API_KEY'])
+    new webpack.EnvironmentPlugin(['SPOTIFY_API_KEY', 'MUSIXMATCH_API_KEY']),
+    new CleanWebpackPlugin()
   ],
 
   devtool: 'source-map',
 
   output: {
     filename: '[name].[hash].js',
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
 
@@ -24,7 +26,8 @@ module.exports = {
     hot: true,
     compress: true,
     historyApiFallback: true,
-    publicPath: '/'
+    publicPath: '/',
+    port: 8081,
     // host: '192.168.14.229'
   },
 
