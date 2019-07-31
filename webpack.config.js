@@ -53,7 +53,7 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.tsx?$/, loader: "ts-loader" },
+      { test: /\.tsx?$/, loader: "babel-loader" },
       { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       {
         test: /\.scss$/i,

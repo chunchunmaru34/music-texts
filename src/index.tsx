@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
@@ -17,12 +18,12 @@ const store = createStore(mainReducer, {}, composeWithDevTools(
   applyMiddleware(thunk)
 ));
 
-ReactDOM.render((
-    <Provider store={store}>
-      <BrowserRouter>
-        <App/>
-      </BrowserRouter>
-    </Provider>
-  ),
- document.getElementById('app')
-);
+const app = (
+  <Provider store={store}>
+    <BrowserRouter>
+      <App/>
+    </BrowserRouter>
+  </Provider>
+)
+
+ReactDOM.render(hot(app), document.getElementById('app'));

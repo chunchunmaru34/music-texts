@@ -16,6 +16,10 @@ export const App = () => {
     authorize();
   }, []);
 
+  if (!localStorage.getItem('access_token')) {
+    return <div>No acess token</div>
+  }
+
   return (
     <div className={styles.app}>
       <Header></Header>

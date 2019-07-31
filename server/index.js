@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackDevMiddleware = require('webpack-dev-middleware')
+const path = require('path');
 
 const compiler = webpack(webpackConfig);
 const clientId = 'bb3e656da0034a318c9a3bb072e0d257';
@@ -24,10 +25,12 @@ const devMiddleware = webpackDevMiddleware(compiler, {
   }
 });
 
+app.use(express.json());
 app.use(devMiddleware);
 app.use(hotMiddleware);
 app.use(express.static('dist'))
    .use(cors())
+
 
 app.get('/api/token/:code', async (req, res) => {
   try {
@@ -83,5 +86,6 @@ app.post('/api/token/refresh', async (req, res) => {
   }
 });
 
+app.get(/^(?!\/api_).+/, (req, res) => res.sendFile(path.resolve(__dirname, '../dist/index.html')));
 
 app.listen(8081, () => console.log('Listening on 8081'));

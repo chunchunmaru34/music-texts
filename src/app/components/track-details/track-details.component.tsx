@@ -1,44 +1,30 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-
-import { Track } from '@app/models/track.model';
-import { searchLyrics } from '@app/services/track/track.service';
-import * as albumService from '@app/services/album/album.service';
-import { Lyrics } from '@app/models/lyrics.model';
-
-import * as styles from './track-details.styles.scss';
 import { Link } from 'react-router-dom';
 
 
-export const TrackDetailsComponent = ({ history, location }: RouteComponentProps) => {
+import { Track } from '@app/models/track.model';
+import * as trackService from '@app/services/track/track.service';
+import * as albumService from '@app/services/album/album.service';
+import { Lyrics } from '@app/models/lyrics.model';
+import { AlbumOtherTracksComponent } from './other-album-tracks/album-other-tracks.component';
+import { TrackSimple } from '@app/models/track-simple.model';
+
+import * as styles from './track-details.styles.scss';
+
+
+export const TrackDetailsComponent = ({ location }: RouteComponentProps) => {
   const track = location.state as Track;
 
-  const [lyrics, setLyrics] = React.useState(new Lyrics());
-  const [albumTracks, setAlbumTracks] = React.useState([]);
+  const [lyrics, setLyrics]: [Lyrics, any] = React.useState();
+  const [albumTracks, setAlbumTracks]: [TrackSimple[], any] = React.useState();
 
   React.useEffect(() => {
-    async function getLyrics() {
-      try {
-        const lyrics = await searchLyrics(track.name, track.artists[0].name);
-        setLyrics(lyrics);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getLyrics();
+    trackService.searchLyrics(track.name, track.artists[0].name).then(setLyrics);
+    albumService.getAlbumTracks(track.album.id).then(setAlbumTracks);
   }, []);
 
-  React.useEffect(() => {
-    async function getAlbumTracks() {
-      try {
-        const tracks = await albumService.getAlbumTracks(track.album.id);
-        setAlbumTracks(tracks);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getAlbumTracks();
-  }, []);
+  const loading = <div>Loading</div>;
 
   return (
     <div className={styles['track-details-container']}>
@@ -54,13 +40,14 @@ export const TrackDetailsComponent = ({ history, location }: RouteComponentProps
         <div className={styles['lyrics']}>
           <span>Lyrics:</span>
           <p>
-            {lyrics && lyrics.lyricsBody}
+            {lyrics ? lyrics.lyricsBody : loading}
           </p>
         </div>
-        <div>Other tracks from this album</div>
-        <div>
-          Other albums from this artist
-          {albumTracks.map(track => <div>{track.name}</div>)}
+        <div className={styles['other-tracks']}>
+          {albumTracks ? <AlbumOtherTracksComponent tracks={albumTracks}/> : loading}
+        </div>
+        <div className={styles['other-albums']}>
+          <h3>Other albums from this artist</h3>
         </div>
       </div>
     </div>

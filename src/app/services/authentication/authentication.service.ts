@@ -25,6 +25,8 @@ export async function getToken(code): Promise<void> {
       }, expiresInMs);
     }
 
+    window.location.href = '/';
+
   } catch (error) {
     console.log('authorization_error');
   }

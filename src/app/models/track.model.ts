@@ -1,10 +1,10 @@
 import { ArtistSimple } from './artiist-simple.model';
 import { SpotifyDto } from './spotify-dto.model';
-import { Album } from '@app/models/album.model';
 import { toCamelCase } from '@app/utils';
+import { AlbumSimple } from './album-simple.model';
 
 export class Track extends SpotifyDto {
-  album: Album;
+  album: AlbumSimple;
   artists: ArtistSimple[];
   availableMarkets: string[];
   discNumber: number;
