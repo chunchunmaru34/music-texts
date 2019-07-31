@@ -4,12 +4,16 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: [
+    'webpack-hot-middleware/client?reload=true',
+    'react-hot-loader/patch',
+    './src/index.tsx'
+  ],
 
   plugins: [
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public/index.html' ) }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.EnvironmentPlugin(['SPOTIFY_API_KEY', 'MUSIXMATCH_API_KEY']),
+    new webpack.EnvironmentPlugin(['MUSIXMATCH_API_KEY']),
     new CleanWebpackPlugin()
   ],
 

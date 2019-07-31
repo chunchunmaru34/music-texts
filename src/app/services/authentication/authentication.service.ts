@@ -1,26 +1,10 @@
 import axios from 'axios';
 
-import { SPOTIFY_CLIENT_SECRET, SPOTIFY_CLIENT_ID } from "@app/constants/api";
+import { SPOTIFY_CLIENT_ID } from "@app/constants/api";
 import { getQueryStringValue } from "@app/utils";
-import { httpSpotify } from '@services/http/http.service';
 
 const apiUrl = 'http://localhost:8081/api';
 const redirectUrl = 'http://localhost:8081';
-
-httpSpotify.interceptors.response.use((response) => response, (error) => {
-  if (error.status === 401) {
-    localStorage.removeItem('access_token');
-    getToken(localStorage.getItem('refresh_token'));
-  }
-
-  return error;
-});
-
-httpSpotify.interceptors.request.use((config) => {
-  config.headers['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-
-  return config;
-})
 
 
 export function redirectiToAuthPage() {
@@ -30,6 +14,28 @@ export function redirectiToAuthPage() {
 export async function getToken(code): Promise<void> {
   try {
     const response = await axios.get(`${apiUrl}/token/${code}`);
+    const { accessToken, refreshToken, expiresInMs } = response.data;
+
+    localStorage.setItem('access_token', accessToken)
+    localStorage.setItem('refresh_token', refreshToken);
+
+    if (expiresInMs) {
+      setTimeout(() => {
+        getToken(refreshToken);
+      }, expiresInMs);
+    }
+
+  } catch (error) {
+    console.log('authorization_error');
+  }
+}
+
+export async function refreshToken() {
+  const oldRefreshToken = localStorage.getItem('refresh_token');
+  localStorage.removeItem('access_token');
+
+  try {
+    const response = await axios.post(`${apiUrl}/token/refresh`, { refreshToken: oldRefreshToken });
     const { accessToken, refreshToken, expiresInMs } = response.data;
 
     localStorage.setItem('access_token', accessToken)
