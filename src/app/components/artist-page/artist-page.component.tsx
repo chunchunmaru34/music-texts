@@ -13,7 +13,7 @@ import { ArtistAlbumsComponent } from './artist-albums/artist-albums.component';
 import { RelatedAArtistsComponent } from './related-artists/related-artists.component';
 
 
-export const ArtistPage = withRouter(({ location, match }: RouteComponentProps) => {
+export const ArtistPage = withRouter(({ match }: RouteComponentProps) => {
   const artistId = (match.params as any).id;
 
   const [artist, setArtist]: [Artist, any] = React.useState();

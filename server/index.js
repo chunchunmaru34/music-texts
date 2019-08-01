@@ -74,18 +74,18 @@ app.post('/api/token/refresh', async (req, res) => {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': `Basic ${authCode}`
     }};
-    const response = await axios.post(`${apiUrl}/token`, body, options);
+    const response = await axios.post(`${apiUrl}`, body, options);
 
     const accessToken = response.data['access_token'];
-    const refreshToken = response.data['refresh_token']
     const expiresInMs = response.data['expires_in'] * 1000;
 
-    res.json({ accessToken, refreshToken, expiresInMs });
+    res.json({ accessToken, expiresInMs });
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 });
 
-app.get(/^(?!\/api_).+/, (req, res) => res.sendFile(path.resolve(__dirname, '../dist/index.html')));
+// app.get(/^(?!\/api_).+/, (req, res) => res.sendFile(path.resolve(__dirname, '../dist/index.html')));
 
 app.listen(8081, () => console.log('Listening on 8081'));

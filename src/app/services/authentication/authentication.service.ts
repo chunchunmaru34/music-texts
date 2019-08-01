@@ -8,7 +8,8 @@ const redirectUrl = 'http://localhost:8081';
 
 
 export function redirectiToAuthPage() {
-  window.open(`https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${redirectUrl}&scope=user-read-email`, 'no-open');
+  window.location.href = `https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${redirectUrl}&scope=user-read-email`;
+  // window.open(`https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${redirectUrl}&scope=user-read-email`, 'no-open');
 }
 
 export async function getToken(code): Promise<void> {
@@ -38,10 +39,9 @@ export async function refreshToken() {
 
   try {
     const response = await axios.post(`${apiUrl}/token/refresh`, { refreshToken: oldRefreshToken });
-    const { accessToken, refreshToken, expiresInMs } = response.data;
+    const { accessToken, expiresInMs } = response.data;
 
     localStorage.setItem('access_token', accessToken)
-    localStorage.setItem('refresh_token', refreshToken);
 
     if (expiresInMs) {
       setTimeout(() => {

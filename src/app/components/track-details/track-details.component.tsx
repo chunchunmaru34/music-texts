@@ -13,7 +13,7 @@ import { TrackSimple } from '@app/models/track-simple.model';
 import * as styles from './track-details.styles.scss';
 
 
-export const TrackDetailsComponent = ({ location }: RouteComponentProps) => {
+export const TrackDetailsComponent = ({ location, history }: RouteComponentProps) => {
   const track = location.state as Track;
 
   const [lyrics, setLyrics]: [Lyrics, any] = React.useState();
@@ -21,7 +21,14 @@ export const TrackDetailsComponent = ({ location }: RouteComponentProps) => {
 
   React.useEffect(() => {
     trackService.searchLyrics(track.name, track.artists[0].name).then(setLyrics);
-    albumService.getAlbumTracks(track.album.id).then(setAlbumTracks);
+    albumService.getAlbumTracks(track.album.id)
+      .then(tracks => trackService.getTracks(tracks.map(track => track.id)))
+      .then(setAlbumTracks);
+  }, [track]);
+
+  const goToOtherDetails = React.useCallback((track) => {
+    history.push(`/tracks/${track.id}`, track);
+    window.scrollTo({ top: 0});
   }, []);
 
   const loading = <div>Loading</div>;
@@ -44,10 +51,7 @@ export const TrackDetailsComponent = ({ location }: RouteComponentProps) => {
           </p>
         </div>
         <div className={styles['other-tracks']}>
-          {albumTracks ? <AlbumOtherTracksComponent tracks={albumTracks}/> : loading}
-        </div>
-        <div className={styles['other-albums']}>
-          <h3>Other albums from this artist</h3>
+          {albumTracks ? <AlbumOtherTracksComponent onClickAction={goToOtherDetails} tracks={albumTracks}/> : loading}
         </div>
       </div>
     </div>

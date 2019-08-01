@@ -51,3 +51,11 @@ export async function getTopTracks(limit?: number): Promise<Track[]> {
 
   return tracks;
 }
+
+export async function getTracks(ids: string[]): Promise<Track[]> {
+  const params = { ids: ids.join(',') };
+
+  const response = await httpSpotify.get('tracks', { params });
+
+  return response.data.tracks.map(item => new Track(item));
+}
