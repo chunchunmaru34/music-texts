@@ -5,8 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: [
-    'webpack-hot-middleware/client?reload=true',
-    'react-hot-loader/patch',
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
     './src/index.tsx'
   ],
 
@@ -25,15 +24,7 @@ module.exports = {
     publicPath: '/'
   },
 
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    hot: true,
-    compress: true,
-    historyApiFallback: true,
-    publicPath: '/',
-    port: 8081,
-    // host: '192.168.14.229'
-  },
+  watch: true,
 
   resolve: {
     alias: {

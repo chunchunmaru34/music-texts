@@ -1,4 +1,3 @@
-import { hot } from 'react-hot-loader/root';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
@@ -26,4 +25,4 @@ const app = (
   </Provider>
 )
 
-ReactDOM.render(hot(app), document.getElementById('app'));
+ReactDOM.render(app, document.getElementById('app'));

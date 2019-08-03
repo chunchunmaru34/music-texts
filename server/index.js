@@ -22,15 +22,11 @@ const devMiddleware = webpackDevMiddleware(compiler, {
   hot: true,
   stats: {
     colors: true
-  }
+  },
+  publicPath: webpackConfig.output.publicPath,
 });
 
 app.use(express.json());
-app.use(devMiddleware);
-app.use(hotMiddleware);
-app.use(express.static('dist'))
-   .use(cors())
-
 
 app.get('/api/token/:code', async (req, res) => {
   try {
@@ -86,6 +82,25 @@ app.post('/api/token/refresh', async (req, res) => {
   }
 });
 
-// app.get(/^(?!\/api_).+/, (req, res) => res.sendFile(path.resolve(__dirname, '../dist/index.html')));
+app.use(devMiddleware);
+app.use(hotMiddleware);
+app.use(express.static('dist'))
+   .use(cors())
+
+
+app.get('/*', (req, res) => {
+  const filename = path.join(compiler.outputPath, 'index.html');
+
+  devMiddleware.waitUntilValid(() => {
+    compiler.outputFileSystem.readFile(filename, (err, result) =>{
+      if (err) {
+        return next(err);
+      }
+      res.set('content-type','text/html');
+      res.send(result);
+      res.end();
+    });
+  });
+});
 
 app.listen(8081, () => console.log('Listening on 8081'));
