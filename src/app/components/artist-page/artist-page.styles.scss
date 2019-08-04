@@ -7,9 +7,16 @@
   padding: 15px;
   box-sizing: border-box;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+  margin-bottom: 50px;
+  border-radius: 10px;
 }
 
-.artist-details {
+.artist-page {
   width: 85%;
   margin: 0 auto;
+  padding: 20px 0;
+}
+
+.top-tracks-container, .albums-container, .related-artists-container {
+  margin-top: 30px;
 }

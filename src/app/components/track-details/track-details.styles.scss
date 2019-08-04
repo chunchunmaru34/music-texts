@@ -7,44 +7,46 @@
   padding: 15px;
   box-sizing: border-box;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 50px;
+  border-radius: 10px;
 }
 
 .track-details {
-  width: 85%;
-  margin: 0 auto;
+  flex: 0.5;
+  // width: 85%;
+  // margin: 0 auto;
 }
 
-.header {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px auto;
+.album-details {
+  padding: 40px 0;
 
-  .album-cover {
-    img {
-      max-width: 300px;
-    }
+  .album-cover-container {
+    border: 1px solid #c1c1c1;
   }
 
-  .info-block {
-    min-width: 300px;
+  .album-name {
     text-align: center;
-
-    .track-name {
-      font-size: 32px;
-      font-weight: bold;
-    }
-
-    .artist-name, .album-name {
-      font-size: 18px;
-    }
   }
 }
 
-.lyrics {
-  p {
-    font-size: 18px;
-    white-space: pre-wrap;
+.info-block {
+  margin-top: 20px;
+
+  min-width: 300px;
+  text-align: center;
+
+  .track-name {
+    font-size: 32px;
+    font-weight: bold;
   }
 
-  text-align: center
+  .artist-name  {
+    font-size: 18px;
+  }
+}
+
+.lyrics-container {
+  margin-top: 50px;
 }

@@ -7,8 +7,15 @@ import * as styles from './artist-details.styles.scss';
 
 export const ArtistDetailsComponent = ({ artist }: { artist: Artist }) => (
   <div className={styles['artist-details']}>
-    <div>{artist.name}</div>
-    <div>{artist.genres.map(genre => <span key={genre}>{genre}</span>)}</div>
-    <div>{artist.images.map(image => <img key={image.url} src={image.url}></img>)}</div>
+    <div className={styles['info-block']}>
+      <div className={styles['artist-name']}><h2>{artist.name}</h2></div>
+      <div className={styles['artist-genres']}>
+        <span>Genres: </span>
+        {artist.genres.map(genre => <div className={styles['genre-block']} key={genre}>{genre}</div>)}
+      </div>
+    </div>
+    <div className={styles['artist-image']}>
+      {<img key={artist.images[0].url} src={artist.images[0].url}></img>}
+    </div>
   </div>
 )

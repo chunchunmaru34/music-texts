@@ -20,8 +20,8 @@ export async function getArtistAlbums(id: string, options?: { limit: number }): 
   return albums;
 }
 
-export async function getArtistTopTracks(id: string): Promise<Track[]> {
-  const result = await httpSpotify.get(`artists/${id}/albums`);
+export async function getArtistTopTracks(id: string, countryCode = 'US'): Promise<Track[]> {
+  const result = await httpSpotify.get(`artists/${id}/top-tracks`, { params: { country: countryCode }});
   const tracks = result.data.tracks.map(track => new Track(track));
 
   return tracks;

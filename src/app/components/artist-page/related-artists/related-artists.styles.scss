@@ -1,0 +1,40 @@
+.artist-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 400px;
+}
+
+.artist-item {
+  margin: 5px;
+  width: 200px;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  border: 1px solid white;
+
+  .image-container {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  span {
+    margin-left: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    border: 1px solid #c1c1c1;
+  }
+}
