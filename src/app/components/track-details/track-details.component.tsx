@@ -13,11 +13,19 @@ import * as styles from './track-details.styles.scss';
 import { LyricsComponent } from './lyrics/lyrics.component';
 
 
-export const TrackDetailsComponent = ({ location, history }: RouteComponentProps) => {
-  const track = location.state as Track;
-
+export const TrackDetailsComponent = ({ match, location, history }: RouteComponentProps) => {
+  const [track, setTrack]: [Track, any] = React.useState();
   const [lyrics, setLyrics]: [Lyrics, any] = React.useState();
   const [albumTracks, setAlbumTracks]: [Track[], any] = React.useState();
+
+  if (!track && location.state) {
+    setTrack(location.state);
+  } else if (!track) {
+    React.useEffect(() => {
+      trackService.getTracks([(match.params as any).id])
+        .then((tracks) => setTrack(tracks[0]));
+    }, [location]);
+  }
 
   React.useEffect(() => {
     trackService.searchLyrics(track.name, track.artists[0].name).then(setLyrics);
@@ -28,7 +36,7 @@ export const TrackDetailsComponent = ({ location, history }: RouteComponentProps
 
   const resetInfo = React.useCallback(() => {
     setLyrics();
-  }, [track]);
+  }, []);
 
   const goToOtherDetails = React.useCallback((track) => {
     history.push(`/tracks/${track.id}`, track);
@@ -36,6 +44,10 @@ export const TrackDetailsComponent = ({ location, history }: RouteComponentProps
   }, []);
 
   const loading = <div>Loading</div>;
+
+  if (!track) {
+    return loading;
+  }
 
   return (
     <div className={styles['track-details-container']}>

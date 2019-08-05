@@ -1,21 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
 
 import { App } from './app/components/app';
-import { mainReducer } from './app/reducers/index';
+import { createReduxStore } from './app/store';
 
-(window as any).parseApiResponse = function(response: any) {
-  return response;
-}
-
-const store = createStore(mainReducer, {}, composeWithDevTools(
-  applyMiddleware(thunk)
-));
+const store = createReduxStore((window as any).__INITIAL_STATE__);
+delete (window as any).__INITIAL_STATE__;
 
 const app = (
   <Provider store={store}>
@@ -25,4 +17,4 @@ const app = (
   </Provider>
 )
 
-ReactDOM.render(app, document.getElementById('app'));
+ReactDOM.hydrate(app, document.getElementById('app'));

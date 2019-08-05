@@ -45,13 +45,15 @@ export function debounce(func, time) {
   }
 }
 
-export function getQueryStringValue (key) {
-  const uri = window.location.search;
-
-  return decodeURIComponent(uri.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+export function getQueryStringValue (url: string, key: string) {
+  return decodeURIComponent(url.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
 
-export function getQueryStringHashValue (key) {
-  const toUri = '?' + window.location.hash.slice(1);
-  return getQueryStringValue(toUri);
+// export function getQueryStringHashValue (key) {
+//   const toUri = '?' + window.location.hash.slice(1);
+//   return getQueryStringValue(toUri);
+// }
+
+export function isServer() {
+  return typeof window === 'undefined';
 }
