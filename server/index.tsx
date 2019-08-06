@@ -7,6 +7,7 @@ const webpack = require('webpack');
 const webpackConfig = require('../webpack.config');
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackDevMiddleware = require('webpack-dev-middleware')
+import compression from 'compression';
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -22,7 +23,7 @@ const redirectUri = 'http://localhost:8081';
 const apiUrl = 'https://accounts.spotify.com/api/token';
 const authCode = new Buffer(`${clientId}:${clientSecret}`).toString('base64');
 
-const expressAPp = express();
+const expressApp = express();
 
 // const hotMiddleware = webpackHotMiddleware(compiler);
 // const devMiddleware = webpackDevMiddleware(compiler, {
@@ -33,10 +34,11 @@ const expressAPp = express();
 //   publicPath: webpackConfig.output.publicPath,
 // });
 
-expressAPp.use(express.json());
-expressAPp.use(cookieParser());
+expressApp.use(express.json());
+expressApp.use(cookieParser());
+expressApp.use(compression());
 
-expressAPp.get('/api/token/:code', async (req, res) => {
+expressApp.get('/api/token/:code', async (req, res) => {
   try {
     const code = req.params.code;
 
@@ -48,7 +50,7 @@ expressAPp.get('/api/token/:code', async (req, res) => {
   }
 });
 
-expressAPp.post('/api/token/refresh', async (req, res) => {
+expressApp.post('/api/token/refresh', async (req, res) => {
   const refreshTokenOld = req.body.refreshToken;
 
   try {
@@ -74,7 +76,7 @@ expressAPp.post('/api/token/refresh', async (req, res) => {
 
 // app.use(devMiddleware);
 // app.use(hotMiddleware);
-expressAPp.use(express.static('dist'))
+expressApp.use(express.static('dist'))
    .use(cors())
 
 
@@ -93,7 +95,7 @@ expressAPp.use(express.static('dist'))
 //   });
 // });
 
-expressAPp.get('/*', async (req, res) => {
+expressApp.get('/*', async (req, res) => {
   let { accessToken, refreshToken } = req.cookies;
   const { code } = req.query;
 
@@ -148,6 +150,8 @@ expressAPp.get('/*', async (req, res) => {
     <html>
     <head>
       <title>SSR TEST</title>
+      <link rel="preload" href="/public/main.css" as="style" />
+      <link href="/public/main.css" rel="stylesheet"></head>
       <script>window.__INITIAL_STATE__ = ${stringifiedState}</script>
     </head>
     <body>
@@ -167,7 +171,7 @@ expressAPp.get('/*', async (req, res) => {
   res.send(html);
 })
 
-expressAPp.listen(8081, () => console.log('Listening on 8081'));
+expressApp.listen(8081, () => console.log('Listening on 8081'));
 
 async function requestToken(code: string) {
   const body = qs.stringify({
