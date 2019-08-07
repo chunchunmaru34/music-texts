@@ -7,17 +7,6 @@ import { authenticated, tokenRefreshed } from '@app/actions/auth.actions';
 import { cookieUtil } from '@app/utils/cookies';
 
 const apiUrl = 'http://localhost:8081/api';
-const redirectUrl = 'http://localhost:8081';
-
-
-// export function redirectiToAuthPage() {
-//   window.location.href = `https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${redirectUrl}&scope=user-read-email`;
-//   // window.open(`https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${redirectUrl}&scope=user-read-email`, 'no-open');
-// }
-
-export function getRedirectUrl(): string {
-  return `https://accounts.spotify.com/authorize?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${redirectUrl}&scope=user-read-email`;
-}
 
 export async function getToken(code: string): Promise<void> {
   try {
@@ -47,19 +36,6 @@ export async function refreshToken() {
     console.log('authorization_error');
   }
 }
-
-// export function authorize(): void {
-//   const token = localStorage.getItem('accessToken');;
-//   const code = getQueryStringValue('code');
-
-//   if (token) {
-//     return;
-//   } else if (code) {
-//     getToken(code);
-//   } else {
-//     redirectiToAuthPage();
-//   }
-// }
 
 export function getAccessTokenFromStorage(): string {
   if (!isServer()) {
