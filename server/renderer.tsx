@@ -7,7 +7,7 @@ import React from 'react';
 import { requestToken, refreshToken } from './services';
 import { App } from '../src/app/components/app';
 import { createReduxStore } from '../src/app/store';
-import { CLIENT_ID, REDIRECT_URI } from './constants';
+import { SPOTIFY_REDIRECT_URL } from './constants';
 
 
 export const renderer = new Router('/*');
@@ -18,7 +18,7 @@ renderer.get('/*', async (req, res) => {
 
   if (!accessToken && !code) {
     res.writeHead(302, {
-      Location:  `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&scope=user-read-email`
+      Location: SPOTIFY_REDIRECT_URL
     });
     return res.end();
   }

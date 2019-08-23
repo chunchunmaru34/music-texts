@@ -8,6 +8,7 @@ export const NavbarComponent = withRouter(({ history, location }: RouteComponent
   return (
     <div className={styles['navbar']}>
       <Link className={styles['link']} to="/">Home</Link>
+      <Link className={styles['link']} to="/favourite-tracks">Your Tracks</Link>
     </div>
   )
 })

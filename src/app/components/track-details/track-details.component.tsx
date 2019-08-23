@@ -10,7 +10,7 @@ import { Lyrics } from '@app/models/lyrics.model';
 import { AlbumOtherTracksComponent } from './album-other-tracks/album-other-tracks.component';
 
 import * as styles from './track-details.styles.scss';
-import { LyricsComponent } from './lyrics/lyrics.component';
+import { LyricsComponent } from '../lyrics/lyrics.component';
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 
 

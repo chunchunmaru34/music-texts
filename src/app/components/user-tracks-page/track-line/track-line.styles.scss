@@ -1,0 +1,42 @@
+.track-line {
+  height: 64px;
+  cursor: pointer;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+
+  .album-cover {
+    margin-right: 15px;
+  }
+
+  .track-info {
+    overflow: hidden;
+    white-space: nowrap;
+
+    .track-name,
+    .album-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-origin {
+      display: flex;
+    }
+  }
+
+  &.selected,
+  &:hover {
+    background-color: #d1d1d1;
+  }
+}
+.artists,
+.album-name {
+  a {
+    color: #616161;
+  }
+}
+
+.separator,
+.album-name {
+  margin-left: 10px;
+}

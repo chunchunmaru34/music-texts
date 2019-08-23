@@ -1,0 +1,29 @@
+.track-info {
+  padding: 15px;
+  height: 100%;
+  border-left: 1px solid gray;
+
+  .info-block {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 25%;
+
+    .album-cover {
+      flex: 1;
+      text-align: center
+    }
+
+    .track-origin {
+      flex: 3;
+      text-align: center;
+    }
+  }
+}
+
+.album-cover {
+  width: 150px;
+
+  img {
+    width: 150px;
+  }
+}

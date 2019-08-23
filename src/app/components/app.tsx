@@ -10,6 +10,7 @@ import { getAccessTokenFromStorage } from '@app/services/authentication/authenti
 import { HomePageComponent } from './home-page/home-page.component';
 import { TrackDetailsComponent } from './track-details/track-details.component';
 import { ArtistPage } from './artist-page/artist-page.component';
+import { UserTracksPage } from './user-tracks-page/user-tracks-page';
 
 
 export const App = () => {
@@ -23,6 +24,7 @@ export const App = () => {
       <Switch>
         <Route path="/tracks/:id" component={TrackDetailsComponent}/>
         <Route path="/artists/:id" component={ArtistPage}/>
+        <Route path="/favourite-tracks" component={UserTracksPage}/>
         <Route exact path="/" component={HomePageComponent}/>
       </Switch>
     </div>

@@ -1,0 +1,27 @@
+.user-tracks-page {
+  width: 85%;
+  margin: 0 auto;
+  margin-top: -250px;
+  background-color: white;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  margin-bottom: 50px;
+  overflow: hidden;
+
+  height: 800px;
+
+  display: flex;
+
+  .track-list {
+    height: 100%;
+    overflow: auto;
+    flex: 1;
+  }
+
+  .selected-track-container {
+    flex: 1.75;
+    overflow: auto;
+    height: 100%;
+  }
+}

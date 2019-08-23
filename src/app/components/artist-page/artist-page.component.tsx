@@ -11,6 +11,7 @@ import { ArtistDetailsComponent } from './artist-details/artist-details.componen
 import { ArtistTopTracksComponent } from './artist-top-tracks/artist-top-tracks.component';
 import { ArtistAlbumsComponent } from './artist-albums/artist-albums.component';
 import { RelatedArtistsComponent } from './related-artists/related-artists.component';
+import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 
 
 export const ArtistPage = withRouter(({ match, history }: RouteComponentProps) => {
@@ -28,7 +29,7 @@ export const ArtistPage = withRouter(({ match, history }: RouteComponentProps) =
     artistService.getRelatedArtists(artistId).then(setRelatedArtists);
   }, [artistId]);
 
-  const loading = <div>Loading</div>;
+  const loading = <LoadingSpinner/>
 
   const goToTrackDetails = React.useCallback((track) => {
     history.push(`/tracks/${track.id}`, track);
