@@ -11,6 +11,7 @@ import { AlbumOtherTracksComponent } from './album-other-tracks/album-other-trac
 
 import * as styles from './track-details.styles.scss';
 import { LyricsComponent } from './lyrics/lyrics.component';
+import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 
 
 export const TrackDetailsComponent = ({ match, location, history }: RouteComponentProps) => {
@@ -20,33 +21,36 @@ export const TrackDetailsComponent = ({ match, location, history }: RouteCompone
 
   if (!track && location.state) {
     setTrack(location.state);
-  } else if (!track) {
-    React.useEffect(() => {
-      trackService.getTracks([(match.params as any).id])
-        .then((tracks) => setTrack(tracks[0]));
-    }, [location]);
   }
 
   React.useEffect(() => {
+    if (!track) {
+      trackService.getTracks([(match.params as Track).id]).then((tracks) => setTrack(tracks[0]));
+
+      return;
+    }
+
     trackService.searchLyrics(track.name, track.artists[0].name).then(setLyrics);
-    albumService.getAlbumTracks(track.album.id)
-      .then(tracks => trackService.getTracks(tracks.map(track => track.id)))
-      .then(setAlbumTracks);
+
+    if (!albumTracks) {
+      albumService.getAlbumTracks(track.album.id)
+        .then(tracks => trackService.getTracks(tracks.map(track => track.id)))
+        .then(setAlbumTracks);
+    }
+  }, [track])
+
+  const goToOtherDetails = React.useCallback((newTrack) => {
+    if (newTrack === track) {
+      return;
+    }
+
+    setLyrics();
+    setTrack(newTrack);
+    history.push(`/tracks/${newTrack.id}`, newTrack);
   }, [track]);
 
-  const resetInfo = React.useCallback(() => {
-    setLyrics();
-  }, []);
-
-  const goToOtherDetails = React.useCallback((track) => {
-    history.push(`/tracks/${track.id}`, track);
-    resetInfo();
-  }, []);
-
-  const loading = <div>Loading</div>;
-
   if (!track) {
-    return loading;
+    return <LoadingSpinner/>;
   }
 
   return (
@@ -57,7 +61,10 @@ export const TrackDetailsComponent = ({ match, location, history }: RouteCompone
           <div className={styles['album-name']}>{track.album.name}</div>
         </div>
         <div className={styles['other-tracks']}>
-          {albumTracks ? <AlbumOtherTracksComponent onClickAction={goToOtherDetails} tracks={albumTracks}/> : loading}
+          {albumTracks
+            ? <AlbumOtherTracksComponent onClickAction={goToOtherDetails} tracks={albumTracks}/>
+            : <LoadingSpinner/>
+          }
         </div>
       </div>
       <div className={styles['track-details']}>
@@ -68,7 +75,7 @@ export const TrackDetailsComponent = ({ match, location, history }: RouteCompone
           </div>
         </div>
         <div className={styles['lyrics-container']}>
-          { lyrics ? <LyricsComponent lyrics={lyrics}/> : loading}
+          { lyrics ? <LyricsComponent lyrics={lyrics}/> : <LoadingSpinner/>}
         </div>
       </div>
     </div>
