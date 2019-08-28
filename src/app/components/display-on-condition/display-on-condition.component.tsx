@@ -1,7 +1,5 @@
-import * as React from 'react';
-
 type DisplayOnConditionProps = {
-  children: React.ReactNode;
+  children: JSX.Element;
   condition: boolean;
 }
 

@@ -13,13 +13,13 @@
 
   display: flex;
 
-  .track-list {
+  .track-list-container {
     height: 100%;
     overflow: auto;
     flex: 1;
   }
 
-  .selected-track-container {
+  .selected-track-info-container {
     flex: 1.75;
     overflow: auto;
     height: 100%;
