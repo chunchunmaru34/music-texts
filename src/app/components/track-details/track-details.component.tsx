@@ -50,11 +50,15 @@ export const TrackDetailsComponent = ({ match, location, history }: RouteCompone
   }, [track]);
 
   if (!track) {
-    return <LoadingSpinner/>;
+    return (
+      <div className={`content-container ${styles['track-details-container']}`}>
+         <LoadingSpinner/>
+      </div>
+    );
   }
 
   return (
-    <div className={styles['track-details-container']}>
+    <div className={`content-container ${styles['track-details-container']}`}>
       <div className={styles['album-details']}>
         <div className={styles['album-cover-container']}>
           <div className={styles['album-cover']}><img src={track.album.images[1].url}></img></div>

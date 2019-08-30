@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackBundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const rules = [
   { test: /\.tsx?$/, loader: "babel-loader" },
@@ -64,8 +65,9 @@ const clientConfig = {
       filename: '[name].css',
       chunkFilename: '[id].css',
       ignoreOrder: false,
-    })
+    }),
     // new CleanWebpackPlugin()
+    // new WebpackBundleAnalyzerPlugin()
   ],
 
   devtool: 'source-map',

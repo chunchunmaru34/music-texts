@@ -1,0 +1,20 @@
+.page-not-found-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: #5c5c5c;
+
+  h1 {
+    font-size: 10em;
+  }
+
+  h2 {
+    size: 2em;
+  }
+
+  h1, h2 {
+    margin: 0;
+  }
+}
