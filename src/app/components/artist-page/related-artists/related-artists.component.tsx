@@ -10,9 +10,9 @@ export const RelatedArtistsComponent = ({ relatedArtists, onClickAction }: { rel
     <h3>Related artists</h3>
     <div className={styles['artist-list']}>
       {relatedArtists.map(artist => (
-        <div className={styles['artist-item']} onClick={() => onClickAction(artist)}>
+        <div key={artist.id} className={styles['artist-item']} onClick={() => onClickAction(artist)}>
           <div className={styles['image-container']}>
-            <img src={artist.images[artist.images.length - 1].url}></img>
+            <img src={artist.images[artist.images.length - 1] && artist.images[artist.images.length - 1].url}></img>
           </div>
           <span>{artist.name}</span>
         </div>

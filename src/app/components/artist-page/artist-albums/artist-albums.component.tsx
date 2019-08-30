@@ -11,7 +11,7 @@ export const ArtistAlbumsComponent = ({ artistAlbums }: { artistAlbums: Album[] 
     <div className={styles['album-list']}>
       {artistAlbums.map(album => (
         <div className={styles['album-card']}>
-          <img src={album.images[1].url}></img>
+          <img src={album.images[1] && album.images[1].url}></img>
           <div className={styles['album-name']}>{album.name}</div>
         </div>
       ))}

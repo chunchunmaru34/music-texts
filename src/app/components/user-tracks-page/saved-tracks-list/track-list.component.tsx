@@ -11,6 +11,7 @@ type SavedTracksListComponentProps = {
   savedTracks: SavedTrack[];
   selectedTrack: Track;
   isAdditionalTracksLoading: boolean;
+  totalTracks: number;
   onSelectTrack(track: Track): void;
   onBoundaryReached(): void;
 }
@@ -26,34 +27,46 @@ function createObserver(handler) {
 }
 
 export const SavedTracksListComponent = (props: SavedTracksListComponentProps) => {
-  if (!props.savedTracks) {
+  const {
+    savedTracks,
+    selectedTrack,
+    isAdditionalTracksLoading,
+    totalTracks,
+    onBoundaryReached,
+    onSelectTrack
+  } = props;
+  if (!savedTracks) {
     return <LoadingSpinner/>
   }
 
-  let observer = React.useMemo(() => createObserver(props.onBoundaryReached), [props.onBoundaryReached]);
+  let observer = React.useMemo(() => createObserver(onBoundaryReached), [onBoundaryReached]);
   const showMoreRef = React.useCallback(node => {
     if (node) {
       observer.observe(node);
     }
   }, []);
 
+  const showMore = (
+    <div className={styles['show-more-container']}>
+      {
+        isAdditionalTracksLoading
+          ? <LoadingSpinner/>
+          : <div className={styles['show-more']} ref={showMoreRef}>Show more</div>
+      }
+    </div>
+  );
+
   return (
     <div className={styles['track-list']}>
-      {props.savedTracks.map(savedTrack => (
+      {savedTracks.map(savedTrack => (
         <TrackLine
           key={savedTrack.track.id}
-          selected={!!props.selectedTrack && savedTrack.track.id === props.selectedTrack.id}
+          selected={!!selectedTrack && savedTrack.track.id === selectedTrack.id}
           track={savedTrack.track}
-          onClick={() => props.onSelectTrack(savedTrack.track)}
+          onClick={() => onSelectTrack(savedTrack.track)}
         />
       ))}
-      <div className={styles['show-more-container']}>
-      {
-        props.isAdditionalTracksLoading
-        ? <LoadingSpinner/>
-        : <div className={styles['show-more']} ref={showMoreRef}>Show more</div>
-      }
-      </div>
+      { savedTracks.length !== totalTracks &&  showMore }
     </div>
   )
 }

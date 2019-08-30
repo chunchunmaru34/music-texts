@@ -22,7 +22,7 @@ export const TrackLine = ({ track, onClick, selected }: TrackLineProps) => {
         <div className={styles['track-name']}>{track.name}</div>
         <div className={styles['track-origin']}>
           <div className={styles['artists']}>
-            {track.artists.map(artist => <Link to={`{artists/${artist.id}}`}>{artist.name}</Link> )}
+            {track.artists.map(artist => <Link to={`artists/${artist.id}`}>{artist.name}</Link> )}
           </div>
           <span className={styles['separator']}>•</span>
           <div className={styles['album-name']}>

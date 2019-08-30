@@ -81,6 +81,7 @@ function getTemplate(body, initialState) {
     <html>
     <head>
       <title>SSR TEST</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="preload" href="/public/main.css" as="style" />
       <link href="/public/main.css" rel="stylesheet"></head>
       <script>window.__INITIAL_STATE__ = ${stringifiedState}</script>

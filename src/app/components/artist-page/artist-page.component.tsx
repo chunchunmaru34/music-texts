@@ -17,10 +17,10 @@ import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 export const ArtistPage = withRouter(({ match, history }: RouteComponentProps) => {
   const artistId = (match.params as any).id;
 
-  const [artist, setArtist]: [Artist, any] = React.useState();
-  const [artistTopTracks, setArtistTopTracks]: [Track[], any] = React.useState();
-  const [artistAlbums, setArtistAlbums]: [Album[], any] = React.useState();
-  const [relatedArtists, setRelatedArtists]: [Artist[], any] = React.useState();
+  const [artist, setArtist] = React.useState<Artist>();
+  const [artistTopTracks, setArtistTopTracks] = React.useState<Track[]>();
+  const [artistAlbums, setArtistAlbums] = React.useState<Album[]>();
+  const [relatedArtists, setRelatedArtists] = React.useState<Artist[]>();
 
   React.useEffect(() => {
     artistService.getArtist(artistId).then(setArtist);
@@ -36,7 +36,13 @@ export const ArtistPage = withRouter(({ match, history }: RouteComponentProps) =
   }, []);
 
   const goToOtherArtist = React.useCallback((artist) => {
+    setArtist(null);
+    setArtistTopTracks(null);
+    setArtistAlbums(null);
+    setRelatedArtists(null);
+
     history.push(`/artists/${artist.id}`, artist);
+    window.scrollTo({ top: 0 });
   }, [artist])
 
   return (

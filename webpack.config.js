@@ -60,7 +60,11 @@ const clientConfig = {
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public/index.html' ) }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.EnvironmentPlugin(['MUSIXMATCH_API_KEY']),
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false,
+    })
     // new CleanWebpackPlugin()
   ],
 
@@ -105,7 +109,11 @@ const serverConfig = {
     filename: '[name]'
   },
   resolve,
-  plugins: [new MiniCssExtractPlugin()]
+  plugins: [new MiniCssExtractPlugin({
+    filename: '[name].css',
+    chunkFilename: '[id].css',
+    ignoreOrder: false,
+  })]
 }
 
 module.exports = [serverConfig, clientConfig];

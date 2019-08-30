@@ -40,6 +40,7 @@ export const SavedTracksListContainer = ({ selectedTrack, onTrackSelected }: Sav
       isAdditionalTracksLoading={isAdditionalTracksLoading}
       onSelectTrack={onTrackSelected}
       onBoundaryReached={fetchNext}
+      totalTracks={savedTracksPage ? savedTracksPage.total : 0}
     />
   )
 }

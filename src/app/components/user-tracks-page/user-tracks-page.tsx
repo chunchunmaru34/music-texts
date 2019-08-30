@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as cs from 'classnames';
 
 import * as styles from './user-tracks-page.scss';
 
@@ -11,7 +12,7 @@ export const UserTracksPage = () => {
   const [selectedTrack, selectTrack] = React.useState<Track>();
 
   return (
-    <div className={styles['user-tracks-page']}>
+    <div className={cs('content-container', styles['user-tracks-page'])}>
       <div className={styles['track-list-container']}>
         <SavedTracksListContainer
           selectedTrack={selectedTrack}
