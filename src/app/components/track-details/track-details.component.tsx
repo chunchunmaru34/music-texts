@@ -14,7 +14,7 @@ import { LyricsComponent } from '../lyrics/lyrics.component';
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 
 
-export const TrackDetailsComponent = ({ match, location, history }: RouteComponentProps) => {
+const TrackDetailsComponent = ({ match, location, history }: RouteComponentProps) => {
   const [track, setTrack]: [Track, any] = React.useState();
   const [lyrics, setLyrics]: [Lyrics, any] = React.useState();
   const [albumTracks, setAlbumTracks]: [Track[], any] = React.useState();
@@ -85,3 +85,5 @@ export const TrackDetailsComponent = ({ match, location, history }: RouteCompone
     </div>
   )
 }
+
+export default TrackDetailsComponent;

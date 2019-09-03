@@ -2,7 +2,7 @@
   "scripts": {
     "start": "node ./dist/index.js",
     "build-dev": "webpack --mode development --watch=true",
-    "build-prod": "webpack --mode production",
+    "build-prod": "export NODE_ENV=production && webpack --mode production",
     "start-babel": "babel ./server/index.ts -o ./server/index-compiled.js && node ./server/index-compiled.js"
   },
   "devDependencies": {
@@ -13,6 +13,8 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
+    "@loadable/babel-plugin": "^5.10.0",
+    "@loadable/webpack-plugin": "^5.7.1",
     "@types/react-router-dom": "^4.3.4",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
@@ -43,6 +45,8 @@
     "webpack-hot-middleware": "^2.25.0"
   },
   "dependencies": {
+    "@loadable/component": "^5.10.2",
+    "@loadable/server": "^5.10.2",
     "@types/node": "^12.6.8",
     "@types/react": "16.8.22",
     "@types/react-dom": "16.8.4",

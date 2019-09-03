@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { loadableReady } from '@loadable/component'
 
 import { App } from './app/components/app';
 import { createReduxStore } from './app/store';
@@ -17,4 +18,4 @@ const app = (
   </Provider>
 )
 
-ReactDOM.hydrate(app, document.getElementById('app'));
+loadableReady(() => ReactDOM.hydrate(app, document.getElementById('app')));

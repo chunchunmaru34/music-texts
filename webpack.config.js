@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackBundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const LoadablePlugin = require('@loadable/webpack-plugin');
 
 const rules = [
   { test: /\.tsx?$/, loader: "babel-loader" },
@@ -58,7 +59,7 @@ const clientConfig = {
   ],
 
   plugins: [
-    new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public/index.html' ) }),
+    // new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public/index.html' ) }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.EnvironmentPlugin(['MUSIXMATCH_API_KEY']),
     new MiniCssExtractPlugin({
@@ -66,15 +67,16 @@ const clientConfig = {
       chunkFilename: '[id].css',
       ignoreOrder: false,
     }),
+    new LoadablePlugin(),
     // new CleanWebpackPlugin()
     // new WebpackBundleAnalyzerPlugin()
   ],
 
-  devtool: 'source-map',
+  devtool: process.env.NODE_ENV !== 'production' ? 'source-map' : '',
 
   output: {
-    // filename: '[name].[hash].js',
-    filename: 'main.js',
+    filename: '[name].bundle.js',
+    // filename: 'main.js',
     path: path.resolve(__dirname, 'dist/public'),
     publicPath: '/'
   },
@@ -88,9 +90,9 @@ const clientConfig = {
   },
 
   optimization: {
-    // splitChunks: {
-    //   chunks: 'all'
-    // }
+    splitChunks: {
+      chunks: 'all'
+    }
   }
 }
 
@@ -99,7 +101,7 @@ const serverConfig = {
   node: {
     __dirname: false
   },
-  devtool: 'source-map',
+  devtool: process.env.NODE_ENV !== 'production' ? 'source-map' : '',
   entry: {
     'index.js': path.resolve(__dirname, 'server/index.tsx')
   },
@@ -111,11 +113,14 @@ const serverConfig = {
     filename: '[name]'
   },
   resolve,
-  plugins: [new MiniCssExtractPlugin({
-    filename: '[name].css',
-    chunkFilename: '[id].css',
-    ignoreOrder: false,
-  })]
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false,
+    }),
+    new LoadablePlugin()
+  ]
 }
 
 module.exports = [serverConfig, clientConfig];
