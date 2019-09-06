@@ -8,10 +8,10 @@ import '../../assets/styles/global.scss';
 import { Header } from './header/header.component';
 import { getAccessTokenFromStorage } from '@app/services/authentication/authentication.service';
 import { HomePageComponent } from './home-page/home-page.component';
+import PageNotFoundComponent from './page-not-found/page-not-found.component';
 const TrackDetailsComponent = loadable(() => import('./track-details/track-details.component'));
 const ArtistPage = loadable(() => import('./artist-page/artist-page.component'))
 const UserTracksPage = loadable(() => import('./user-tracks-page/user-tracks-page.component.'));
-const PageNotFoundComponent = loadable(() => import('./page-not-found/page-not-found.component'));
 const AlbumPageComponent = loadable(() => import('./album-page/album-page.component'));
 
 export const App = () => {
