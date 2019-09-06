@@ -8,7 +8,7 @@ import { Album } from '@models/album.model';
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 import { TrackCard } from '../track-card/track-card.component';
 
-export const AlbumPageComponent = ({ match, history }: RouteComponentProps) => {
+const AlbumPageComponent = ({ match, history }: RouteComponentProps) => {
   const albumId = (match.params as any).id;
 
   const [album, setAlbum] = React.useState<Album>();
@@ -47,3 +47,5 @@ export const AlbumPageComponent = ({ match, history }: RouteComponentProps) => {
     </div>
   )
 }
+
+export default AlbumPageComponent;

@@ -14,7 +14,7 @@ import { RelatedArtistsComponent } from './related-artists/related-artists.compo
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 
 
-export const ArtistPage = withRouter(({ match, history }: RouteComponentProps) => {
+const ArtistPage = withRouter(({ match, history }: RouteComponentProps) => {
   const artistId = (match.params as any).id;
 
   const [artist, setArtist] = React.useState<Artist>();
@@ -66,4 +66,6 @@ export const ArtistPage = withRouter(({ match, history }: RouteComponentProps) =
       </div>
     </div>
   );
-})
+});
+
+export default ArtistPage;

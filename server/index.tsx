@@ -15,8 +15,8 @@ expressApp.use(compression());
 
 expressApp.use(api);
 
-expressApp.use(express.static('dist'))
-   .use(cors())
+expressApp.use(express.static('./dist/public'))
+   .use(cors());
 
 expressApp.use(renderer);
 
