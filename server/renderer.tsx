@@ -1,14 +1,12 @@
 import { Router } from 'express';
 import { renderToString } from 'react-dom/server';
-import { Provider } from 'react-redux';
-import { BrowserRouter, StaticRouter } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom';
 import React from 'react';
 import { ChunkExtractor } from '@loadable/server'
 import path from 'path';
 
 import { requestToken, refreshToken } from './services';
 import { App } from '../src/app/components/app';
-import { createReduxStore } from '../src/app/store';
 import { SPOTIFY_REDIRECT_URL } from './constants';
 
 export const renderer = new Router('/*');
@@ -47,28 +45,21 @@ renderer.get('/*', async (req, res) => {
       refreshToken
     }
   }
-  const store = createReduxStore(initialState);
 
   const app = extractor.collectChunks(
-    <Provider store={store}>
       <StaticRouter location={req.url} context={context}>
         <App/>
       </StaticRouter>
-    </Provider>
   )
 
   const body = renderToString(app);
-  const asyncActions = store.getState().auth.asyncActions;
-  if (asyncActions) {
-    await Promise.all(asyncActions);
-  }
 
   const scriptTags = extractor.getScriptTags();
   // You can also collect your "preload/prefetch" links
   const linkTags = extractor.getLinkTags();
   const styleTags = extractor.getStyleTags();
 
-  const html = getTemplate(body, store.getState(), scriptTags, styleTags, linkTags);
+  const html = getTemplate(body, {}, scriptTags, styleTags, linkTags);
 
   if (context.url) {
     res.writeHead(302, {

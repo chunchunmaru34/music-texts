@@ -1,7 +1,5 @@
 import { ASYNC_ACTION_STARTED } from './../actions/auth.actions';
 import { AUTHENTICATED, TOKEN_REFRESHED } from '@app/actions/auth.actions';
-import { isServer } from '@app/utils';
-import { getAccessTokenFromStorage, getRefreshTokenFromStorage } from '@app/services/authentication/authentication.service';
 
 const initialState = {
   accessToken: '',
@@ -9,11 +7,6 @@ const initialState = {
   shouldRedirectToAuthPage: false,
   asyncActions: []
 }
-
-// if (!isServer()) {
-//   initialState.accessToken = getAccessTokenFromStorage();
-//   initialState.refreshToken = getRefreshTokenFromStorage();
-// }
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {

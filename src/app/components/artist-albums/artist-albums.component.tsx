@@ -12,7 +12,7 @@ type Props = ArtistAlbumsComponentProps & RouteComponentProps;
 
 export const ArtistAlbumsComponent = withRouter(({ artistAlbums, history }: Props) => (
   <div className={styles['artist-albums']}>
-    <h2>{artistAlbums[0].artists[0].name} other albums</h2>
+    <h2>{artistAlbums[0] && artistAlbums[0].artists[0].name} other albums</h2>
     <div className={styles['album-list']}>
       {artistAlbums.map(album => (
         <div

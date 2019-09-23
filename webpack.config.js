@@ -69,7 +69,7 @@ const clientConfig = {
     }),
     new LoadablePlugin(),
     // new CleanWebpackPlugin()
-    // new WebpackBundleAnalyzerPlugin()
+    new WebpackBundleAnalyzerPlugin()
   ],
 
   devtool: process.env.NODE_ENV !== 'production' ? 'source-map' : '',

@@ -2,8 +2,7 @@
   "scripts": {
     "start": "node ./dist/index.js",
     "build-dev": "webpack --mode development --watch=true",
-    "build-prod": "export NODE_ENV=production && webpack --mode production",
-    "start-babel": "babel ./server/index.ts -o ./server/index-compiled.js && node ./server/index-compiled.js"
+    "build-prod": "export NODE_ENV=production && webpack --mode production"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -57,11 +56,7 @@
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-icons": "^3.7.0",
-    "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
-    "react-spinners": "^0.6.1",
-    "redux": "^4.0.1",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "react-spinners": "^0.6.1"
   }
 }

@@ -1,43 +1,36 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { TrackCard } from '@components/track-card/track-card.component';
-import { fetchTopTracks } from '@actions/top-tracks.actions';
-
 import * as styles from './top-tracks-list.styles.scss';
+
+import { TrackCard } from '@components/track-card/track-card.component';
+import { trackService } from '@services/index';
 import { Track } from '@app/models/track.model';
+import { LoadingSpinner } from '@app/components/loading-spinner/loading-spinner';
 
-interface TopTracksProps {
-  dispatch: Function,
-  topTracks: Array<Track>,
-};
+const MAX_TOP_TRACKS = 25;
 
-class TopTracksListComponent extends React.Component<TopTracksProps & RouteComponentProps> {
-  componentDidMount() {
-    this.props.dispatch(fetchTopTracks(15));
+export const TopTracksListComponent = withRouter(({ history }: RouteComponentProps) => {
+  const [topTracks, setTopTracks] = React.useState<Track[]>();
+
+  React.useEffect(() => {
+    trackService.getTopTracks(MAX_TOP_TRACKS).then(setTopTracks);
+  }, []);
+
+  if (!topTracks) {
+    return <LoadingSpinner/>
   }
 
-  goToDetails = (track: Track) => {
-    this.props.history.push(`/tracks/${track.id}`, track)
-  }
+  const tracks = topTracks.map((track: Track) => (
+    <TrackCard key={track.id} track={track} onClick={() => history.push(`/tracks/${track.id}`, track)}/>
+  ));
 
-  render() {
-    const { topTracks } = this.props;
-
-    return (
-      <div className={styles['top-tracks-list']}>
-        <div className={styles.title}><h2>Top Songs</h2></div>
-        <div className={styles['top-track-cards']}>
-          { topTracks.map((track: Track) => <TrackCard key={track.id} track={track} onClick={() => this.goToDetails(track)}/>) }
-        </div>
+  return (
+    <div className={styles['top-tracks-list']}>
+      <div className={styles.title}><h2>Top Songs</h2></div>
+      <div className={styles['top-track-cards']}>
+        {tracks}
       </div>
-    )
-  }
-}
-
-const mapStateToProps = (state) => ({
-  topTracks: state.topTracks.tracks,
+    </div>
+  )
 })
-
-export const TopTracksList = withRouter(connect(mapStateToProps)(TopTracksListComponent));
