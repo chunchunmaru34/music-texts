@@ -4,5 +4,20 @@
   .album-info {
     display: flex;
     justify-content: space-around;
+    padding-top: 15px;
+
+    .album-cover-container {
+      max-width: 500px;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .album-details {
+    h1 {
+      margin-top: 0;
+    }
   }
 }

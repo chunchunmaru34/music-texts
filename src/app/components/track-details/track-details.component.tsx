@@ -62,7 +62,9 @@ const TrackDetailsComponent = ({ match, location, history }: RouteComponentProps
       <div className={styles['album-details']}>
         <div className={styles['album-cover-container']}>
           <div className={styles['album-cover']}><img src={track.album.images[1].url}></img></div>
-          <div className={styles['album-name']}>{track.album.name}</div>
+          <div className={styles['album-name']}>
+            <Link to={`/albums/${track.album.id}`}>{track.album.name}</Link>
+          </div>
         </div>
         <div className={styles['other-tracks']}>
           {albumTracks

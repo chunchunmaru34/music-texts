@@ -1,3 +1,9 @@
+.artist-albums {
+  h2 {
+    margin-left: 50px;
+  }
+}
+
 .album-list {
   display: flex;
   flex-wrap: wrap;
@@ -8,6 +14,7 @@
   width: 150px;
   height: 150px;
   position: relative;
+  cursor: pointer;
 
   .album-name {
     position: absolute;

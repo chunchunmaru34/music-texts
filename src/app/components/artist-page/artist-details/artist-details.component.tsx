@@ -15,7 +15,7 @@ export const ArtistDetailsComponent = ({ artist }: { artist: Artist }) => (
       </div>
     </div>
     <div className={styles['artist-image']}>
-      {<img key={artist.images[0].url} src={artist.images[0].url}></img>}
+      {<img key={artist.images[0].url} src={artist.images[0] && artist.images[0].url}></img>}
     </div>
   </div>
 )

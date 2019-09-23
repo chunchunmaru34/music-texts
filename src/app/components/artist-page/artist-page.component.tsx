@@ -9,7 +9,7 @@ import { Album } from '@app/models/album.model';
 import { Track } from '@app/models/track.model';
 import { ArtistDetailsComponent } from './artist-details/artist-details.component';
 import { ArtistTopTracksComponent } from './artist-top-tracks/artist-top-tracks.component';
-import { ArtistAlbumsComponent } from './artist-albums/artist-albums.component';
+import { ArtistAlbumsComponent } from '../artist-albums/artist-albums.component';
 import { RelatedArtistsComponent } from './related-artists/related-artists.component';
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 
