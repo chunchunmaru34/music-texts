@@ -11,7 +11,7 @@ import { LyricsComponent } from '@app/components/lyrics/lyrics.component';
 
 
 export const TrackInfoComponent = ({ track }: { track: Track }) => {
-  const [lyrics, setLyrics]: [Lyrics, any] = React.useState();
+  const [lyrics, setLyrics] = React.useState<Lyrics>();
 
   React.useEffect(() => {
     trackService.searchLyrics(track.name, track.artists[0].name).then(setLyrics);

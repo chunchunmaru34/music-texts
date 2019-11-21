@@ -25,7 +25,7 @@ renderer.get('/*', async (req, res) => {
     return res.end();
   }
 
-  if (code) {
+  if (code && !accessToken) {
     try {
       const result = await requestToken(code);
       accessToken = result.accessToken;
@@ -40,22 +40,19 @@ renderer.get('/*', async (req, res) => {
 
   const context: any = {};
   const initialState = {
-    auth: {
-      accessToken,
-      refreshToken
-    }
+    accessToken,
+    refreshToken
   }
 
   const app = extractor.collectChunks(
-      <StaticRouter location={req.url} context={context}>
-        <App/>
-      </StaticRouter>
+    <StaticRouter location={req.url} context={context}>
+      <App initialState={initialState}/>
+    </StaticRouter>
   )
 
   const body = renderToString(app);
 
   const scriptTags = extractor.getScriptTags();
-  // You can also collect your "preload/prefetch" links
   const linkTags = extractor.getLinkTags();
   const styleTags = extractor.getStyleTags();
 
@@ -95,30 +92,3 @@ function getTemplate(body, initialState, scriptTags, styleTags, linkTags) {
 
   return html;
 }
-
-
-// function getTemplate(body, initialState) {
-//   const stringifiedState = `${JSON.stringify(initialState)}`.replace(
-//     /</g,
-//     '\\u003c'
-//   );
-
-//   const html = `
-//     <html>
-//     <head>
-//       <title>SSR TEST</title>
-//       <meta name="viewport" content="width=device-width, initial-scale=1">
-//       <link rel="preload" href="/public/main.css" as="style" />
-//       <link href="/public/main.css" rel="stylesheet"></head>
-//       <script>window.__INITIAL_STATE__ = ${stringifiedState}</script>
-//     </head>
-//     <body>
-//     <div id="app">${body}</div>
-//     <script src="/public/vendors~main.bundle.js" charset="utf-8"></script>
-//     <script src="/public/main.bundle.js" charset="utf-8"></script>
-//     </body>
-//     </html>
-//   `;
-
-//   return html;
-// }

@@ -15,9 +15,9 @@ import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 
 
 const TrackDetailsComponent = ({ match, location, history }: RouteComponentProps) => {
-  const [track, setTrack]: [Track, any] = React.useState();
-  const [lyrics, setLyrics]: [Lyrics, any] = React.useState();
-  const [albumTracks, setAlbumTracks]: [Track[], any] = React.useState();
+  const [track, setTrack] = React.useState<Track | undefined>();
+  const [lyrics, setLyrics] = React.useState<Lyrics | undefined>();
+  const [albumTracks, setAlbumTracks] = React.useState<Track[]>();
 
   if (!track && location.state) {
     setTrack(location.state);
@@ -44,7 +44,7 @@ const TrackDetailsComponent = ({ match, location, history }: RouteComponentProps
       return;
     }
 
-    setLyrics();
+    setLyrics(undefined);
     setTrack(newTrack);
     history.push(`/tracks/${newTrack.id}`, newTrack);
   }, [track]);
