@@ -1,0 +1,19 @@
+.info-block {
+  margin-top: 20px;
+
+  min-width: 300px;
+  text-align: center;
+
+  .track-name {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .artist-name  {
+    font-size: 18px;
+  }
+}
+
+.lyrics-container {
+  margin-top: 50px;
+}

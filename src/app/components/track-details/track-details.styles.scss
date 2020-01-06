@@ -3,41 +3,6 @@
   justify-content: space-around;
 }
 
-.track-details {
+.track-info-container {
   flex: 0.5;
-  // width: 85%;
-  // margin: 0 auto;
-}
-
-.album-details {
-  padding: 40px 0;
-
-  .album-cover-container {
-    max-width: 300px;
-    border: 1px solid #c1c1c1;
-  }
-
-  .album-name {
-    text-align: center;
-  }
-}
-
-.info-block {
-  margin-top: 20px;
-
-  min-width: 300px;
-  text-align: center;
-
-  .track-name {
-    font-size: 32px;
-    font-weight: bold;
-  }
-
-  .artist-name  {
-    font-size: 18px;
-  }
-}
-
-.lyrics-container {
-  margin-top: 50px;
 }

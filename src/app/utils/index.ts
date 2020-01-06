@@ -45,6 +45,34 @@ export function debounce(func, time) {
   }
 }
 
+
+// use only when arguments are primitives
+export function memoize(func) {
+  const storage = {};
+
+  return (...args) => {
+    const argsKeys = args.toString();
+
+    if (Object.keys(storage).includes(argsKeys)) {
+      return storage[argsKeys];
+    }
+
+    let result = func(...args);
+
+    if (result instanceof Promise) {
+      result.then(resultAsync => {
+        storage[argsKeys] = result;
+        
+        return resultAsync;
+      })
+    } else {
+      storage[argsKeys] = result;
+    }
+
+    return result;
+  }
+}
+
 export function getQueryStringValue (url: string, key: string) {
   return decodeURIComponent(url.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }

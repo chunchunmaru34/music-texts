@@ -3,6 +3,7 @@ import { TrackSearchTypesEnum } from '@enums/track-search-types.enum';
 import { Track } from '@app/models/track.model';
 import { Lyrics } from '@app/models/lyrics.model';
 import { httpSpotify, httpMusixmatch } from '@app/services/http/http.service';
+import { memoize } from '@app/utils';
 
 
 const musixmatchParams = {
@@ -29,7 +30,7 @@ export async function searchTracks(
   return result;
 }
 
-export async function searchLyrics(trackName: string, artist: string) {
+export const searchLyrics = memoize(async (trackName: string, artist: string) => {
   const params = {
     'q_track': trackName,
     'q_artist': artist,
@@ -40,7 +41,7 @@ export async function searchLyrics(trackName: string, artist: string) {
   const lyrics = new Lyrics(eval(response.data).message.body.lyrics);
 
   return lyrics;
-}
+});
 
 export async function getTopTracks(limit?: number): Promise<Track[]> {
   let tracks = [];
@@ -58,4 +59,8 @@ export async function getTracks(ids: string[]): Promise<Track[]> {
   const response = await httpSpotify.get('tracks', { params });
 
   return response.data.tracks.map(item => new Track(item));
+}
+
+export async function getTrack(id: string): Promise<Track> {
+  return getTracks([id]).then(tracks => tracks[0]);
 }
