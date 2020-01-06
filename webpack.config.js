@@ -90,6 +90,7 @@ const clientConfig = {
   },
 
   optimization: {
+    runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all'
     }

@@ -14,14 +14,21 @@ const ArtistPage = loadable(() => import('./artist-page/artist-page.component'))
 const UserTracksPage = loadable(() => import('./user-tracks-page/user-tracks-page.component.'));
 const AlbumPageComponent = loadable(() => import('./album-page/album-page.component'));
 
-export const App = () => {
-  if (!getAccessTokenFromStorage()) {
+type AppProps = {
+  initialState?: {
+    accessToken?: string;
+    refreshToken?: string;
+  }
+}
+
+export const App = ({ initialState = {} }: AppProps) => {
+  if (!getAccessTokenFromStorage() && !(initialState && initialState.accessToken)) {
     return <div>No acess token</div>
   }
 
   return (
     <div className={styles.app}>
-      <Header></Header>
+      <Header/>
       <Switch>
         <Route path="/tracks/:id" component={TrackDetailsComponent}/>
         <Route path="/artists/:id" component={ArtistPage}/>

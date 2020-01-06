@@ -1,7 +1,23 @@
-.sweet-loading {
+.loading-spinner-container {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.loading-spinner {
+  background: transparent !important;
+  border-radius: 100%;
+  border: 2px solid;
+  border-bottom-color: transparent !important;
+  display: inline-block;
+  animation: spinning 0.75s 0s infinite linear;
+  animation-fill-mode: both;
+
+  @keyframes spinning {
+    0% {transform: rotate(0deg)}
+    50% {transform: rotate(180deg)}
+    100% {transform: rotate(360deg)}
+  }
 }

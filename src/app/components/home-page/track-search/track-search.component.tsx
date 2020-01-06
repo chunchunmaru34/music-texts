@@ -1,57 +1,47 @@
 import * as React from 'react'
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchResult } from './search-results/search-results.component';
 import { debounce } from '@app/utils';
 import { Track } from '@app/models/track.model';
-import { clearSearchResults, searchTracks } from '@actions/search.actions';
+import { trackService } from '@services/index';
 
 import * as styles from './track-search.styles.scss';
 
-interface TrackSearchProps {
-  tracks: Track[],
-  cleanResults: Function,
-  searchTracks: Function,
-  dispatch: Function,
-}
+export const TrackSearchComponent = withRouter(({ history }: RouteComponentProps) => {
+  const [tracks, setTracks] = React.useState<Track[] | undefined>();
 
-class TrackSearch extends React.Component<TrackSearchProps & RouteComponentProps> {
-  search = debounce((value: string) => {
-    const { searchTracks, cleanResults } = this.props;
-    if (!value) {
-      cleanResults();
-      return;
-    }
+  const search = React.useCallback(
+    debounce((value: string) => {
+      if (!value) {
+        setTracks(undefined);
 
-    searchTracks(value, { limit: 10 });
-  }, 300)
+        return;
+      }
 
-  goToDetails = (track: Track) => {
-    this.props.history.push(`/tracks/${track.id}`, track);
-  }
+      trackService.searchTracks(value, { limit: 10 }).then(setTracks);
+    }, 300),
+    []
+  );
 
-  render() {
-    return (
-      <div className={styles['track-search']}>
-        <div className={styles.title}><h2>Search Tracks</h2></div>
-        <SearchBarComponent onSearchInputChange={this.search}></SearchBarComponent>
-        <div className={styles['search-result-container']}>
-          <SearchResult tracks={this.props.tracks} onResultsClicked={this.goToDetails}></SearchResult>
-        </div>
+  const goToDetails = React.useCallback((track: Track) => {
+    history.push(`/tracks/${track.id}`, track);
+  }, []);
+
+  return (
+    <div className={styles['track-search']}>
+      <div className={styles.title}>
+        <h2>Search Tracks</h2>
       </div>
-    )
-  }
-}
-
-const mapStateToProps = (state) => ({
-  tracks: state.searchTracks.tracks
+      <SearchBarComponent onSearchInputChange={search}/>
+      <div className={styles['search-result-container']}>
+        <SearchResult
+          tracks={tracks}
+          onResultsClicked={goToDetails}
+        />
+      </div>
+    </div>
+  )
 });
-
-const mapDispatchToProps = (dispatch) => ({
-  cleanResults: () => dispatch(clearSearchResults()),
-  searchTracks: (query: string, options?) => dispatch(searchTracks(query, options))
-})
-
-export const TrackSearchComponent = withRouter(connect(mapStateToProps, mapDispatchToProps)(TrackSearch));
