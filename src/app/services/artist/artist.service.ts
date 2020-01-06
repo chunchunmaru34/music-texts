@@ -2,14 +2,15 @@ import { Artist } from '@app/models/artist.model';
 import { Album } from '@app/models/album.model';
 import { Track } from '@app/models/track.model';
 import { httpSpotify } from '@app/services/http/http.service'
+import { memoize } from '@app/utils';
 
 
-export async function getArtist(id: string): Promise<Artist> {
+export const getArtist = memoize(async (id: string): Promise<Artist> => {
   const result = await httpSpotify.get(`artists/${id}`);
   const artist = new Artist(result.data);
 
   return artist;
-}
+});
 
 export async function getArtistAlbums(id: string, options?: { limit: number }): Promise<Album[]> {
   const params = { ...options };

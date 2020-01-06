@@ -43,7 +43,7 @@ export const searchLyrics = memoize(async (trackName: string, artist: string) =>
   return lyrics;
 });
 
-export async function getTopTracks(limit?: number): Promise<Track[]> {
+export const getTopTracks = memoize(async (limit?: number): Promise<Track[]> => {
   let tracks = [];
   const params = { limit };
 
@@ -51,15 +51,15 @@ export async function getTopTracks(limit?: number): Promise<Track[]> {
   tracks = (tracks as any).data.items.map(dto => new Track(dto.track));
 
   return tracks;
-}
+});
 
-export async function getTracks(ids: string[]): Promise<Track[]> {
+export const getTracks = memoize(async (ids: string[]): Promise<Track[]> => {
   const params = { ids: ids.join(',') };
 
   const response = await httpSpotify.get('tracks', { params });
 
   return response.data.tracks.map(item => new Track(item));
-}
+});
 
 export async function getTrack(id: string): Promise<Track> {
   return getTracks([id]).then(tracks => tracks[0]);
