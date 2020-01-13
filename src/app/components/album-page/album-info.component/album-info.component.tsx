@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import * as styles from 'album-info.styles.scss';
+import * as styles from './album-info.styles.scss';
 
 import { Album } from '@app/models/album.model';
 

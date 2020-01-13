@@ -27,7 +27,7 @@ const AlbumPageComponent = ({ match }: RouteComponentProps<RouteParams>) => {
             >
                 <AlbumInfo album={album} />
                 <div className={styles['artist-albums-container']}>
-                    {album.artists.map(artist => (
+                    {album?.artists.map(artist => (
                         <ArtistAlbumsContainer
                             key={artist.id}
                             artistId={artist.id}
