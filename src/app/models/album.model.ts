@@ -5,28 +5,27 @@ import { SpotifyDto } from './spotify-dto.model';
 import { TrackSimple } from './track-simple.model';
 
 export class Album extends SpotifyDto {
-  albumType: string;
-  artists: ArtistSimple[];
-  availableMarkets: string[];
-  copyrights: any[];
-  genres: string[];
-  label: string;
-  popularity: number;
-  tracks: TrackSimple[];
-  id: string;
-  images: AlbumCover[];
-  name: string;
-  releaseDate: string;
-  totalTracks: number;
+    albumType: string;
+    artists: ArtistSimple[];
+    availableMarkets: string[];
+    copyrights: any[];
+    genres: string[];
+    label: string;
+    popularity: number;
+    tracks: TrackSimple[];
+    id: string;
+    images: AlbumCover[];
+    name: string;
+    releaseDate: string;
+    totalTracks: number;
 
-  constructor(dto?: any) {
-    super();
+    constructor(dto?: any) {
+        super();
 
-    if (dto) {
-      const camelCased = toCamelCase(dto);
+        if (dto) {
+            const camelCased = toCamelCase(dto);
 
-      Object.assign(this, camelCased);
+            Object.assign(this, camelCased);
+        }
     }
-  }
 }
-

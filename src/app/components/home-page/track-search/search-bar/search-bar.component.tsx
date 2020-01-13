@@ -1,21 +1,18 @@
-import * as React from 'react'
+import * as React from 'react';
 
 import * as styles from './search-bar.styles.scss';
 
 interface SearchBarProps {
-  onSearchInputChange: Function
+    onSearchInputChange: (value: string) => void;
 }
 
-export class SearchBarComponent extends React.Component<SearchBarProps> {
-  onSearchInputChange = (event) => {
-    this.props.onSearchInputChange(event.target.value);
-  }
-
-  render() {
+export const SearchBarComponent = ({ onSearchInputChange }: SearchBarProps) => {
     return (
-      <div className={styles['search-bar']}>
-        <input className={styles['search-input']} onChange={this.onSearchInputChange}></input>
-      </div>
-    )
-  }
-}
+        <div className={styles['search-bar']}>
+            <input
+                className={styles['search-input']}
+                onChange={event => onSearchInputChange(event.target.value)}
+            />
+        </div>
+    );
+};

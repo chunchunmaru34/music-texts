@@ -9,23 +9,23 @@ import { TrackInfoComponent } from './track-info/track-info.component';
 import { SavedTracksListContainer } from './saved-tracks-list/track-list.container';
 
 const UserTracksPage = () => {
-  const [selectedTrack, selectTrack] = React.useState<Track>();
+    const [selectedTrack, selectTrack] = React.useState<Track>();
 
-  return (
-    <div className={cs('content-container', styles['user-tracks-page'])}>
-      <div className={styles['track-list-container']}>
-        <SavedTracksListContainer
-          selectedTrack={selectedTrack}
-          onTrackSelected={selectTrack}
-          />
-      </div>
-      <DisplayOnCondition condition={!!selectedTrack}>
-        <div className={styles['selected-track-info-container']}>
-          <TrackInfoComponent track={selectedTrack}/>
+    return (
+        <div className={cs('content-container', styles['user-tracks-page'])}>
+            <div className={styles['track-list-container']}>
+                <SavedTracksListContainer
+                    selectedTrack={selectedTrack}
+                    onTrackSelected={selectTrack}
+                />
+            </div>
+            <DisplayOnCondition condition={!!selectedTrack}>
+                <div className={styles['selected-track-info-container']}>
+                    <TrackInfoComponent track={selectedTrack} />
+                </div>
+            </DisplayOnCondition>
         </div>
-      </DisplayOnCondition>
-    </div>
-  )
-}
+    );
+};
 
 export default UserTracksPage;

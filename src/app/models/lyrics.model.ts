@@ -1,19 +1,19 @@
-import { toCamelCase } from "@app/utils";
+import { toCamelCase } from '@app/utils';
 
 export class Lyrics {
-  id: string;
-  restricted: boolean;
-  instrumental: boolean;
-  lyricsBody: string;
-  lyricsLanguage: string;
-  lyricsCopyright: string;
+    id: string;
+    restricted: boolean;
+    instrumental: boolean;
+    lyricsBody: string;
+    lyricsLanguage: string;
+    lyricsCopyright: string;
 
-  constructor(dto?) {
-    if (dto) {
-      Object.assign(this, toCamelCase(dto));
+    constructor(dto?) {
+        if (dto) {
+            Object.assign(this, toCamelCase(dto));
 
-      this.instrumental = !!this.instrumental;
-      this.restricted = !!this.restricted;
+            this.instrumental = !!this.instrumental;
+            this.restricted = !!this.restricted;
+        }
     }
-  }
 }

@@ -11,59 +11,70 @@ import { AlbumInfo } from './album-info/album-info.component';
 import { TrackSimple } from '@app/models/track-simple.model';
 import { TrackInfo } from './track-info/track-info.component';
 
-
 type RouteParams = {
-  id: string;
-}
+    id: string;
+};
 
-const TrackDetailsComponent = ({ match, location, history }: RouteComponentProps<RouteParams>) => {
-  const [track, setTrack] = React.useState<Track | undefined>();
-  const [albumTracks, setAlbumTracks] = React.useState<Track[]>();
+const TrackDetailsComponent = ({
+    match,
+    location,
+    history
+}: RouteComponentProps<RouteParams>) => {
+    const [track, setTrack] = React.useState<Track | undefined>();
+    const [albumTracks, setAlbumTracks] = React.useState<Track[]>();
 
-  if (!track && location.state) {
-    setTrack(location.state);
-  }
-
-  React.useEffect(() => {
-    if (!track) {
-      trackService.getTrack(match.params.id).then(setTrack);
-
-      return;
+    if (!track && location.state) {
+        setTrack(location.state);
     }
 
-    if (!albumTracks) {
-      albumService.getAlbumTracks(track.album.id)
-        .then(tracks => trackService.getTracks(tracks.map(track => track.id)))
-        .then(setAlbumTracks);
-    }
-  }, [track])
+    React.useEffect(() => {
+        if (!track) {
+            trackService.getTrack(match.params.id).then(setTrack);
 
-  const goToOtherDetails = React.useCallback((newTrack: Track | TrackSimple) => {
-    if (newTrack.id === track.id) {
-      return;
-    }
+            return;
+        }
 
-    history.push(`/tracks/${newTrack.id}`, newTrack);
-  }, [track]);
+        if (!albumTracks) {
+            albumService
+                .getAlbumTracks(track.album.id)
+                .then(tracks =>
+                    trackService.getTracks(tracks.map(track => track.id))
+                )
+                .then(setAlbumTracks);
+        }
+    }, [track]);
 
-  React.useEffect(() => setTrack(location.state), [location]);
+    const goToOtherDetails = React.useCallback(
+        (newTrack: Track | TrackSimple) => {
+            if (newTrack.id === track.id) {
+                return;
+            }
 
-  return (
-    <LoadingWrapper isLoading={!track}>
-      <div className={`content-container ${styles['track-details-container']}`}>
-				<div className={styles['album-info-container']}>
-					<AlbumInfo
-						album={track && track.album}
-						albumTracks={albumTracks}
-						goToOtherDetails={goToOtherDetails}
-					/>
-				</div>
-				<div className={styles['track-info-container']}>
-        	<TrackInfo track={track}/>
-				</div>
-      </div>
-    </LoadingWrapper>
-  )
-}
+            history.push(`/tracks/${newTrack.id}`, newTrack);
+        },
+        [track]
+    );
+
+    React.useEffect(() => setTrack(location.state), [location]);
+
+    return (
+        <LoadingWrapper isLoading={!track}>
+            <div
+                className={`content-container ${styles['track-details-container']}`}
+            >
+                <div className={styles['album-info-container']}>
+                    <AlbumInfo
+                        album={track?.album}
+                        albumTracks={albumTracks}
+                        goToOtherDetails={goToOtherDetails}
+                    />
+                </div>
+                <div className={styles['track-info-container']}>
+                    <TrackInfo track={track} />
+                </div>
+            </div>
+        </LoadingWrapper>
+    );
+};
 
 export default TrackDetailsComponent;

@@ -1,6 +1,6 @@
 export enum TrackSearchTypesEnum {
-  ALBUM = 'album',
-  TRACK = 'track',
-  ARTIST = 'artist',
-  PLAYLIST = 'playlist'
+    ALBUM = 'album',
+    TRACK = 'track',
+    ARTIST = 'artist',
+    PLAYLIST = 'playlist'
 }

@@ -6,10 +6,10 @@ import * as libraryService from './library/library.service';
 import * as trackService from './track/track.service';
 
 export {
-  albumService,
-  artistService,
-  authenticationService,
-  httpService,
-  libraryService,
-  trackService,
-}
+    albumService,
+    artistService,
+    authenticationService,
+    httpService,
+    libraryService,
+    trackService
+};

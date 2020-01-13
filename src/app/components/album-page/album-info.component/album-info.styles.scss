@@ -1,0 +1,13 @@
+.album-info {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 15px;
+
+    .album-cover-container {
+        max-width: 500px;
+
+        img {
+            width: 100%;
+        }
+    }
+}
